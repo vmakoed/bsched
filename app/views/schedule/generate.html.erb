@@ -1,1 +1,51 @@
 <%= @schedule_hash %>
+
+<% subgroup = "1" %>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>День недели</th>
+        <% lesson_time_boundaries.each do |lesson_time_boundary| %>
+          <th><%= lesson_time_boundary %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% week_numbers.each do |week_number| %>
+        <tr>
+          <td>Неделя <%= week_number %></td>
+        </tr>
+        <% weekdays.each do |weekday| %>
+          <tr>
+            <td><%= weekday %></td>
+            <% lesson_time_boundaries.each do |lesson_time_boundary| %>
+              <td>
+                <%=
+                  if @schedule_hash[week_number][weekday]
+                    if @schedule_hash[week_number][weekday][subgroup]
+                      if @schedule_hash[week_number][weekday][subgroup][lesson_time_boundary]
+                        @schedule_hash[week_number][weekday][subgroup][lesson_time_boundary]
+                      else
+                        if @schedule_hash[week_number][weekday]["0"][lesson_time_boundary]
+                          @schedule_hash[week_number][weekday]["0"][lesson_time_boundary]
+                        end
+                      end
+                    else
+                      if @schedule_hash[week_number][weekday]["0"]
+                        if @schedule_hash[week_number][weekday]["0"][lesson_time_boundary]
+                          @schedule_hash[week_number][weekday]["0"][lesson_time_boundary]
+                        end
+                      end
+                    end
+                  end
+                %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
