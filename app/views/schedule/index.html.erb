@@ -1,4 +1,10 @@
 <div class="container">
   <h1>BSUIR Schedule Complete</h1>
-  <p class="lead">A vivid display of BSUIR schedule.</p>
+  <p class="lead">Расписание группы БГУИР в наглядном виде.</p>
+  <%= form_tag "/generate", method: "get", :class => "form-inline" do %>
+      <div class="input-group">
+        <%= text_field_tag :group_number, nil, class: 'form-control', placeholder: 'Введите номер группы' %>
+      </div>
+      <%= submit_tag "Показать расписание", class: 'btn btn-default' %>
+  <% end %>
 </div>
