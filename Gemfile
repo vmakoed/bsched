@@ -24,6 +24,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass'
 # Use Nokogiri for parsing xml
 gem 'nokogiri'
+# Use Bootswatch for bootstrap themes
+gem 'bootswatch-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
