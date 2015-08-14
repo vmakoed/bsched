@@ -1,52 +1,50 @@
 class ScheduleController < ApplicationController
+  include ApplicationHelper
+
   require 'open-uri'
   require 'nokogiri'
-
-  WEEKDAYS = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
-
-  WEEK_NUMBERS = ["1", "2", "3", "4"]
 
   def index
   end
 
   def get_group
-    redirect_to :action => "generate", :group_number => params[:group_number]
+    redirect_to :action => "generate", :group_number => params[:group_number], :subgroup_number => params[:subgroup_number]
   end
 
   def generate
-    @schedule_hash = parse_xml(Nokogiri::XML(open(form_url(params[:group_number]))))
+    @schedule_hash = parse_xml(Nokogiri::XML(open(form_url(params[:group_number]))), params[:subgroup_number])
   end
 
   def form_url(group_number)
     "http://www.bsuir.by/schedule/rest/schedule/#{group_number}"
   end
 
-  def parse_xml(xml_schedule)
+  def parse_xml(xml_schedule, subgroup_number)
     raw_hash = Hash.from_xml(xml_schedule.to_s)["scheduleXmlModels"]["scheduleModel"]
-    schedule_hash = form_hash(raw_hash)
+    schedule_hash = form_hash(raw_hash, subgroup_number)
   end
 
-  def form_hash(raw_hash)
+  def form_hash(raw_hash, subgroup_number)
     schedule_hash = Hash.new
-    WEEK_NUMBERS.each do |week_number|
-      schedule_hash[week_number] = form_week_hash(raw_hash, week_number)
+    week_numbers.each do |week_number|
+      schedule_hash[week_number] = form_week_hash(raw_hash, week_number, subgroup_number)
     end
     schedule_hash
   end
 
-  def form_week_hash(raw_hash, week_number)
+  def form_week_hash(raw_hash, week_number, subgroup_number)
     week_hash = Hash.new
     raw_hash.each_with_index do |(weekday_hash), index|
-      week_hash[WEEKDAYS[index]] = form_weekday_hash(weekday_hash["schedule"], week_number)
+      week_hash[weekdays[index]] = form_weekday_hash(weekday_hash["schedule"], week_number, subgroup_number)
     end
     week_hash
   end
 
-  def form_weekday_hash(raw_weekday_hash, week_number)
+  def form_weekday_hash(raw_weekday_hash, week_number, subgroup_number)
     if does_weekday_have_multiple_lessons?(raw_weekday_hash)
-      form_weekday_hash_for_multiple_lessons(raw_weekday_hash, week_number)
+      form_weekday_hash_for_multiple_lessons(raw_weekday_hash, week_number, subgroup_number)
     else
-      form_weekday_hash_for_single_lesson(raw_weekday_hash, week_number)
+      form_weekday_hash_for_single_lesson(raw_weekday_hash, week_number, subgroup_number)
     end
   end
 
@@ -54,24 +52,32 @@ class ScheduleController < ApplicationController
     raw_weekday_hash.kind_of?(Array)
   end
 
-  def form_weekday_hash_for_multiple_lessons(raw_weekday_hash, week_number)
+  def form_weekday_hash_for_multiple_lessons(raw_weekday_hash, week_number, subgroup_number)
     weekday_hash = {}
     raw_weekday_hash.each do |lesson_hash|
-      add_lesson_to_weekday_hash(weekday_hash, lesson_hash, week_number)
+      add_lesson_to_weekday_hash(weekday_hash, lesson_hash, week_number, subgroup_number)
     end
     weekday_hash
   end
 
-  def add_lesson_to_weekday_hash(weekday_hash, lesson_hash, week_number)
-    weekday_hash["#{lesson_hash["numSubgroup"]}"] ||= {}
-    weekday_hash["#{lesson_hash["numSubgroup"]}"]["#{lesson_hash["lessonTime"]}"] ||= []
-    weekday_hash["#{lesson_hash["numSubgroup"]}"]["#{lesson_hash["lessonTime"]}"] << form_lesson_hash(lesson_hash, week_number)
-    weekday_hash["#{lesson_hash["numSubgroup"]}"]["#{lesson_hash["lessonTime"]}"].compact!
+  def add_lesson_to_weekday_hash(weekday_hash, lesson_hash, week_number, subgroup_number)
+    if lesson_hash["numSubgroup"] == subgroup_number || lesson_hash["numSubgroup"] == "0"
+      weekday_hash["#{lesson_hash["lessonTime"]}"] ||= {}
+      if lesson_time_boundaries.include? "#{lesson_hash["lessonTime"]}"
+        weekday_hash["#{lesson_hash["lessonTime"]}"] = form_lesson_hash(lesson_hash, week_number) if form_lesson_hash(lesson_hash, week_number)
+      else
+        split_long_lesson(weekday_hash, lesson_hash, week_number)
+      end
+    else
+      nil
+    end
   end
 
-  def form_weekday_hash_for_single_lesson(raw_weekday_hash, week_number)
+  def form_weekday_hash_for_single_lesson(raw_weekday_hash, week_number, subgroup_number)
     weekday_hash = {}
-    weekday_hash["#{raw_weekday_hash["numSubgroup"]}"] = form_lesson_hash(raw_weekday_hash, week_number)
+    weekday_hash = add_lesson_to_weekday_hash(weekday_hash, raw_weekday_hash, week_number, subgroup_number)
+    puts weekday_hash
+    weekday_hash
   end
 
   def form_lesson_hash(raw_lesson_hash, week_number)
@@ -83,8 +89,17 @@ class ScheduleController < ApplicationController
         "auditory" =>  "#{raw_lesson_hash["auditory"]}"
       }
     else
-      lesson_hash = nil
+      nil
     end
-    lesson_hash
+  end
+
+  def split_long_lesson(weekday_hash, long_lesson, week_number)
+    start_time = long_lesson["lessonTime"][0, 5]
+    finish_time = long_lesson["lessonTime"][-5, 5]
+    lesson_times = lesson_time_boundaries.select {|time_boundary| time_boundary[0, 5] >= start_time && time_boundary[-5, 5] <= finish_time}
+    lesson_times.each do |lesson_time|
+      weekday_hash["#{lesson_time}"] = form_lesson_hash(long_lesson, week_number) if form_lesson_hash(long_lesson, week_number)
+    end
+    weekday_hash
   end
 end

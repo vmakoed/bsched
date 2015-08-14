@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'schedule#index'
 
   get 'get_group' => 'schedule#get_group'
-  get 'generate/:group_number' => 'schedule#generate'
+  get 'generate/:group_number/:subgroup_number' => 'schedule#generate'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

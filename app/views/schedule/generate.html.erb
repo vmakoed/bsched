@@ -1,7 +1,7 @@
 <%= @schedule_hash %>
-
-<% subgroup = "1" %>
-
+<br>
+<br>
+<%= @schedule_hash["2"]["Пятница"] %>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -15,27 +15,19 @@
     <tbody>
       <% week_numbers.each do |week_number| %>
         <tr>
-          <td>Неделя <%= week_number %></td>
+          <td colspan="100%"><h2>Неделя <%= week_number %></h2></td>
         </tr>
         <% weekdays.each do |weekday| %>
           <tr>
-            <td><%= weekday %></td>
+            <td><h4><%= weekday %></h4></td>
             <% lesson_time_boundaries.each do |lesson_time_boundary| %>
               <td>
                 <%=
                   if @schedule_hash[week_number][weekday]
-                    if @schedule_hash[week_number][weekday][subgroup]
-                      if @schedule_hash[week_number][weekday][subgroup][lesson_time_boundary]
-                        @schedule_hash[week_number][weekday][subgroup][lesson_time_boundary]
-                      else
-                        if @schedule_hash[week_number][weekday]["0"][lesson_time_boundary]
-                          @schedule_hash[week_number][weekday]["0"][lesson_time_boundary]
-                        end
-                      end
-                    else
-                      if @schedule_hash[week_number][weekday]["0"]
-                        if @schedule_hash[week_number][weekday]["0"][lesson_time_boundary]
-                          @schedule_hash[week_number][weekday]["0"][lesson_time_boundary]
+                    if @schedule_hash[week_number][weekday]
+                      if @schedule_hash[week_number][weekday][lesson_time_boundary]
+                        if @schedule_hash[week_number][weekday][lesson_time_boundary].any?
+                          render partial: 'lesson', locals: {lesson: @schedule_hash[week_number][weekday][lesson_time_boundary]}
                         end
                       end
                     end
