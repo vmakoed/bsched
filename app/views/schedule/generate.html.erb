@@ -1,23 +1,23 @@
 <div class="table-responsive">
-  <table class="table table-striped">
+  <table class="table table-responsive">
     <thead>
-      <tr>
-        <th>День недели</th>
+      <tr class="table-header">
+        <th></th>
         <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-          <th><%= lesson_time_boundary %></th>
+          <th><h5><%= lesson_time_boundary %></h5></th>
         <% end %>
       </tr>
     </thead>
     <tbody>
       <% week_numbers.each do |week_number| %>
-        <tr>
-          <td colspan="100%"><h2>Неделя <%= week_number %></h2></td>
+        <tr class="weekday-tr">
+          <td colspan="100%"><h5 class="weekday-label">Неделя <%= week_number %></h5></td>
         </tr>
         <% weekdays.each do |weekday| %>
           <tr>
             <td><h4><%= weekday %></h4></td>
             <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-              <td>
+              <td class="lesson-td" style="padding:0">
                 <%=
                   if @schedule_hash[week_number][weekday]
                     if @schedule_hash[week_number][weekday]

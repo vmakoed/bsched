@@ -1,1 +1,4 @@
-<div><h4><%= lesson["subject"] %></h4></div>
+<div class="<%= "#{lesson_container lesson["lessonType"]}" %>" >
+  <h4><%= lesson["subject"] %></h4>
+  <h6><%= "#{lesson["auditory"]}" %></h6>
+</div>

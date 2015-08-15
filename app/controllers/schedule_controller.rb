@@ -76,8 +76,6 @@ class ScheduleController < ApplicationController
   def form_weekday_hash_for_single_lesson(raw_weekday_hash, week_number, subgroup_number)
     weekday_hash = {}
     weekday_hash = add_lesson_to_weekday_hash(weekday_hash, raw_weekday_hash, week_number, subgroup_number)
-    puts weekday_hash
-    weekday_hash
   end
 
   def form_lesson_hash(raw_lesson_hash, week_number)

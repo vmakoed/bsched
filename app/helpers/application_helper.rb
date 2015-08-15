@@ -10,4 +10,16 @@ module ApplicationHelper
   def week_numbers
     ["1", "2", "3", "4"]
   end
+
+  def lesson_container(lesson_type)
+    "lesson-container lesson-container-#{classes_by_lesson_types[lesson_type]}"
+  end
+
+  def classes_by_lesson_types
+    {
+      "ЛК" => "lecture",
+      "ПЗ" => "seminar",
+      "ЛР" => "lab"
+    }
+  end
 end

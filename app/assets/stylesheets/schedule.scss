@@ -1,3 +1,64 @@
 // Place all the styles related to the schedule controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.table th, .table td {
+     border-top: none !important;
+ }
+
+.table-header {
+  background-color: #E0E0E0;
+
+  h5 {
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.weekday-tr {
+  background-color: #F5F5F5;
+}
+
+.weekday-label {
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.lesson-container {
+  text-align: center;
+  height: 100%;
+  overflow: auto;
+
+  h4 {
+    color: #fff;
+  }
+}
+
+.lesson-container-lecture {
+  background-color: #4CAF50;
+
+  h6 {
+    font-weight: bold;
+    color: #C8E6C9;
+  }
+}
+
+.lesson-container-seminar {
+  background-color: #03A9F4;
+
+  h6 {
+    font-weight: bold;
+    color: #BBDEFB;
+  }
+}
+
+.lesson-container-lab {
+  background-color: #F44336;
+
+  h6 {
+    font-weight: bold;
+    color: #FFCDD2;
+  }
+}
+
