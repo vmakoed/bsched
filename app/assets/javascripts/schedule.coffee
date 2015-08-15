@@ -3,4 +3,14 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $('#table-lessons').stickyTableHeaders();
+  $('#table-lessons th').each (index, element) =>
+    remove = 0
+    tds = $(element).parents('table').find('tr td:nth-child(' + (index + 1) + ')')
+    tds.each (index, element) =>
+      if ($(element).html() == '')
+        remove++
+    if (remove == ($('#table-lessons tr').length - 5))
+        $(element).hide()
+        tds.hide()
+
+  $('#table-lessons').stickyTableHeaders()
