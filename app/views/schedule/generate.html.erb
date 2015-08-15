@@ -1,3 +1,5 @@
+<% title "Группа #{params[:group_number]}, подгруппа #{params[:subgroup_number]}" %>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
@@ -5,7 +7,7 @@
         <table class="table table-responsive" id="table-lessons">
           <thead>
             <tr class="table-header">
-              <th></th>
+              <th><h5><%= "#{params[:group_number]} (#{params[:subgroup_number]})" %></h5></th>
               <% lesson_time_boundaries.each do |lesson_time_boundary| %>
                 <th><h5><%= lesson_time_boundary %></h5></th>
               <% end %>

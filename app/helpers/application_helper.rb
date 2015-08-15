@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def title(page_title)
+    content_for(:title) { page_title }
+  end
+
   def weekdays
     ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
   end
