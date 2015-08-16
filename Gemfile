@@ -26,6 +26,10 @@ gem 'bootstrap-sass'
 gem 'nokogiri'
 # Use Bootswatch for bootstrap themes
 gem 'bootswatch-rails'
+# Use WickedPDF for PDF generation
+gem 'wicked_pdf'
+# A tool used by WickedPDF
+gem 'wkhtmltopdf-binary'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

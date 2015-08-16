@@ -13,6 +13,16 @@ class ScheduleController < ApplicationController
 
   def generate
     @schedule_hash = parse_xml(Nokogiri::XML(open(form_url(params[:group_number]))), params[:subgroup_number])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "schedule_#{params[:group_number]}_#{params[:subgroup_number]}",
+          template: 'schedule/pdf/generate.pdf.erb',
+          layout: 'pdf.html.erb',
+          page_width: '297mm',
+          page_height: '610mm'
+      end
+    end
   end
 
   def form_url(group_number)
@@ -21,7 +31,7 @@ class ScheduleController < ApplicationController
 
   def parse_xml(xml_schedule, subgroup_number)
     raw_hash = Hash.from_xml(xml_schedule.to_s)["scheduleXmlModels"]["scheduleModel"]
-    schedule_hash = form_hash(raw_hash, subgroup_number)
+    form_hash(raw_hash, subgroup_number)
   end
 
   def form_hash(raw_hash, subgroup_number)
