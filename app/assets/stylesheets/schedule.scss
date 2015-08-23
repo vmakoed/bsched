@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .table th, .table td {
-     border-top: none !important;
+     border: none !important;
  }
 
 .table-header {
@@ -12,6 +12,7 @@
   h5 {
     font-weight: bold;
     text-align: center;
+    color: #4E4E4E;
   }
 }
 
