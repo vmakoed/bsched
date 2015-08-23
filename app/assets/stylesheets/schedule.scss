@@ -3,8 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .table th, .table td {
-     border: none !important;
- }
+  border: none !important;
+}
 
 .table-header {
   background-color: #E0E0E0;
@@ -39,6 +39,14 @@ thead {
 
   h4 {
     color: #fff;
+  }
+}
+
+.lesson-container-hidden {
+  opacity: 0;
+
+  h4, h6 {
+    opacity: 0;
   }
 }
 
