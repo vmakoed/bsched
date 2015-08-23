@@ -3,7 +3,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <%= render partial: 'schedule_table', locals: { schedule_hash: @schedule_hash } %>
+      <%= render partial: 'schedule_table', locals: { schedule_hash: @schedule_hash, current_week: @current_week, current_day: @current_day } %>
       <%= render 'colors_hint' %>
       <%= render 'pdf_button' %>
     </div>

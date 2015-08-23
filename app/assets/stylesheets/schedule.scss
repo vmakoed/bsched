@@ -100,3 +100,19 @@ thead {
   padding-left: 30px;
   padding-right: 30px;
 }
+
+.tr-current-week-header {
+  background-color: #FFF59D;
+
+  h5 {
+    color: #4e4e4e;
+  }
+}
+
+.tr-current-week {
+  background-color: #FFF9C4;
+}
+
+.tr-current-day {
+  background-color: #FFF176;
+}

@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <table class="table table-responsive table-striped" id="table-lessons">
+  <table class="table table-responsive" id="table-lessons">
     <thead>
       <tr class="table-header">
         <th><h5><%= "#{params[:group_number]} (#{params[:subgroup_number]})" %></h5></th>
@@ -10,12 +10,36 @@
     </thead>
     <tbody>
       <% week_numbers.each do |week_number| %>
-        <tr class="weekday-tr">
-          <td colspan="100%"><h5 class="weekday-label">Неделя <%= week_number %></h5></td>
-        </tr>
+        <% if week_number == current_week %>
+          <tr class="tr-current-week-header">
+        <% else %>
+          <tr class="weekday-tr ">
+        <% end %>
+            <td colspan="100%">
+              <h5 class="weekday-label">
+                Неделя <%= week_number %>
+                <%= " (текущая)" if week_number == current_week %>
+              </h5>
+            </td>
+          </tr>
         <% weekdays.each do |weekday| %>
+        <% if week_number == current_week %>
+          <% if weekday == weekdays[current_day - 1] %>
+            <tr class="tr-current-day">
+          <% else %>
+            <tr class="tr-current-week">
+          <% end %>
+        <% else %>
           <tr>
-            <td><h4><%= weekday %></h4></td>
+        <% end %>
+            <td>
+              <h4>
+                <%= weekday %>
+                <% if week_number == current_week && weekday == weekdays[current_day - 1] %>
+                  <br><%= " (сегодня)" %>
+                <% end %>
+              </h4>
+            </td>
             <% lesson_time_boundaries.each do |lesson_time_boundary| %>
               <td class="lesson-td" style="padding:2px"><%=
                   if schedule_hash[week_number][weekday]
