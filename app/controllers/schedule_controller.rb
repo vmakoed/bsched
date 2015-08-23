@@ -20,7 +20,7 @@ class ScheduleController < ApplicationController
           template: 'schedule/pdf/generate.pdf.erb',
           layout: 'pdf.html.erb',
           page_width: '297mm',
-          page_height: '610mm'
+          page_height: '800mm'
       end
     end
   end
@@ -94,8 +94,17 @@ class ScheduleController < ApplicationController
       lesson_hash = {
         "subject" => "#{raw_lesson_hash["subject"]}",
         "lessonType" => "#{raw_lesson_hash["lessonType"]}",
-        "auditory" =>  "#{raw_lesson_hash["auditory"]}"
+        "auditory" => "#{raw_lesson_hash["auditory"]}",
+        "employee" => extract_employee(raw_lesson_hash["employee"])
       }
+    else
+      nil
+    end
+  end
+
+  def extract_employee(raw_employee_hash)
+    if raw_employee_hash
+      "#{raw_employee_hash["lastName"]} #{raw_employee_hash["firstName"][0,1]}. #{raw_employee_hash["middleName"][0,1]}."
     else
       nil
     end

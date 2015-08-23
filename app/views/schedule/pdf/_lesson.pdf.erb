@@ -1,4 +1,5 @@
 <div class="<%= "#{lesson_container lesson["lessonType"]}" %>" >
   <h4><%= lesson["subject"] %></h4>
-  <h6><%= "#{lesson["auditory"]}" %></h6>
+  <h6><%= lesson["employee"] if lesson["employee"] %></h6>
+  <h6><%= lesson["auditory"] %></h6>
 </div>
