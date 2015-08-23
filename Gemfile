@@ -30,6 +30,8 @@ gem 'bootswatch-rails'
 gem 'wicked_pdf'
 # A tool used by WickedPDF
 gem 'wkhtmltopdf-binary'
+# For WickedPDF support by Heroku
+gem 'wkhtmltopdf-heroku'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -56,5 +58,7 @@ end
 group :production do
   # Use postgresql as the database for Active Record
   gem 'pg'
+  # For Heroku logging
+  gem 'rails_12factor'
 end
 
