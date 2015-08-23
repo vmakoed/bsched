@@ -2,6 +2,9 @@
 
 <div class="jumbotron">
   <div class="container">
+    <%= link_to "https://github.com/vmakoed/bsuir-schedule-complete", target: "_blank" do %>
+      <div id="github-floating-button"></div>
+    <% end %>
     <h1>BSUIR Schedule Complete</h1>
     <p class="lead">Расписание группы БГУИР в наглядном виде</p>
     <%= form_tag "/get_group", method: "get", :class => "form-inline" do %>
