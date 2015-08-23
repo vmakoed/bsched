@@ -14,7 +14,7 @@ class ScheduleController < ApplicationController
   def generate
     @schedule_hash = parse_xml(Nokogiri::XML(open(form_url(params[:group_number]))), params[:subgroup_number])
     @current_week = calculate_current_week_number.to_s
-    @current_day = Date.today.cwday
+    @current_day = Time.zone.now.to_date.cwday
 
     respond_to do |format|
       format.html
@@ -124,11 +124,12 @@ class ScheduleController < ApplicationController
   end
 
   def calculate_current_week_number
-    (((Date.today.beginning_of_week - calculate_study_year_start) / 7) % 4).to_i + 1
+    (((Time.zone.now.to_date.beginning_of_week - calculate_study_year_start) / 7) % 4).to_i + 1
   end
 
   def calculate_study_year_start
-    year = Date.today.month >= 9 ? Date.today.year : Date.today.year - 1
+    today = Time.zone.now.to_date
+    year = today.month >= 9 ? today.year : today.year - 1
     Date.new(year, 9, 1).beginning_of_week
   end
 end
