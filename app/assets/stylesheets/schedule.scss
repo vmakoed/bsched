@@ -7,12 +7,20 @@
 }
 
 .table-header {
-  background-color: #E0E0E0;
+  background-color: #fff;
 
   h5 {
     font-weight: bold;
     text-align: center;
-    color: #4E4E4E;
+    color: #666;
+  }
+
+  .th-current-lesson {
+    background-color: #eee;
+
+    h5 {
+      color: #212121;
+    }
   }
 }
 
@@ -36,6 +44,7 @@ thead {
   text-align: center;
   height: 100%;
   overflow: auto;
+  position:relative;
 
   h4 {
     color: #fff;
@@ -102,17 +111,43 @@ thead {
 }
 
 .tr-current-week-header {
-  background-color: #FFF59D;
-
   h5 {
     color: #4e4e4e;
   }
 }
 
 .tr-current-week {
-  background-color: #FFF9C4;
+  background-color: #e0e0e0;
 }
 
 .tr-current-day {
-  background-color: #FFF176;
+  background-color: #F5F5F5;
+
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+  td:first-child h4 {
+    font-weight: bold;
+  }
+}
+
+.badge-current {
+  position:absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #fff !important;
+  font-weight: bold !important;
+}
+
+.badge-current-lecture {
+  color: #4CAF50 !important;
+}
+
+.badge-current-seminar {
+  color: #03A9F4 !important;
+}
+
+.badge-current-lab {
+  color: #F44336 !important;
 }

@@ -4,14 +4,22 @@
       <tr class="table-header">
         <th><h5><%= "#{params[:group_number]} (#{params[:subgroup_number]})" %></h5></th>
         <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-          <th><h5><%= lesson_time_boundary %></h5></th>
+          <% if current_time >= lesson_time_boundary[0, 5] && current_time <= lesson_time_boundary[-5, 5] %>
+            <th class = "th-current-lesson">
+          <% else %>
+            <th>
+          <% end %>
+            <h5>
+              <%= lesson_time_boundary %>
+            </h5>
+          </th>
         <% end %>
       </tr>
     </thead>
     <tbody>
       <% week_numbers.each do |week_number| %>
         <% if week_number == current_week %>
-          <tr class="tr-current-week-header">
+          <tr class="tr-current-week tr-current-week-header">
         <% else %>
           <tr class="weekday-tr ">
         <% end %>
@@ -46,7 +54,11 @@
                     if schedule_hash[week_number][weekday]
                       if schedule_hash[week_number][weekday][lesson_time_boundary]
                         if schedule_hash[week_number][weekday][lesson_time_boundary].any?
-                          render partial: 'lesson', locals: {lesson: schedule_hash[week_number][weekday][lesson_time_boundary]}
+                          render partial: 'lesson', locals:
+                            {
+                              lesson: schedule_hash[week_number][weekday][lesson_time_boundary],
+                              current: current_time >= lesson_time_boundary[0, 5] && current_time <= lesson_time_boundary[-5, 5] && week_number == current_week && weekday == weekdays[current_day - 1]
+                            }
                         end
                       end
                     end

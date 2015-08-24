@@ -19,6 +19,10 @@ module ApplicationHelper
     "lesson-container lesson-container-#{classes_by_lesson_types[lesson_type]}"
   end
 
+  def badge_current(lesson_type)
+    "badge badge-current badge-current-#{classes_by_lesson_types[lesson_type]}"
+  end
+
   def classes_by_lesson_types
     {
       "ЛК" => "lecture",

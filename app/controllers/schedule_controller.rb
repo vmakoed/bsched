@@ -15,6 +15,7 @@ class ScheduleController < ApplicationController
     @schedule_hash = parse_xml(Nokogiri::XML(open(form_url(params[:group_number]))), params[:subgroup_number])
     @current_week = calculate_current_week_number.to_s
     @current_day = Time.zone.now.to_date.cwday
+    @current_time = get_current_time_string
 
     respond_to do |format|
       format.html
@@ -131,5 +132,13 @@ class ScheduleController < ApplicationController
     today = Time.zone.now.to_date
     year = today.month >= 9 ? today.year : today.year - 1
     Date.new(year, 9, 1).beginning_of_week
+  end
+
+  def get_current_time_string
+    hour = "#{Time.zone.now.hour}"
+    min = "#{Time.zone.now.min}"
+    hour.insert(0, "0") if hour.length == 1
+    min.insert(0, "0") if min.length == 1
+    "#{hour}:{min}"
   end
 end
