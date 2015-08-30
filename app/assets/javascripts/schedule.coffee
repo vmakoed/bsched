@@ -38,8 +38,6 @@ toggle_lessons_type = (type) ->
     show_lessons(lesson_container_selector)
     enable_type_button(button_id_selector, type)
 
-
-
 hide_lessons = (lesson_container_selector) ->
   $("#table-lessons").addClass("fixed-table")
   $(lesson_container_selector).each (index, element) =>

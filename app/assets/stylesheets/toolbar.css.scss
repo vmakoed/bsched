@@ -1,3 +1,11 @@
+.toolbar {
+  position: fixed;
+  bottom: 0px;
+  height: 70px;
+  padding-top: 10px;
+  background-color: #fff;
+}
+
 .type-button {
   color: #fff !important;
 }
@@ -24,4 +32,9 @@
 
 .labs-button:hover {
   background-color: #E91B0C;
+}
+
+#pdf-button {
+  padding-left: 0;
+  padding-right: 0;
 }

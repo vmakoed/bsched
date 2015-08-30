@@ -1,0 +1,65 @@
+.lesson-container {
+  text-align: center;
+  height: 100%;
+  overflow: auto;
+  position:relative;
+
+  h4 {
+    color: #fff;
+  }
+}
+
+.lesson-container-hidden {
+  opacity: 0;
+
+  h4, h6 {
+    opacity: 0;
+  }
+}
+
+.lesson-container-lecture {
+  background-color: #4CAF50;
+
+  h6 {
+    font-weight: bold;
+    color: #C8E6C9;
+  }
+}
+
+.lesson-container-seminar {
+  background-color: #03A9F4;
+
+  h6 {
+    font-weight: bold;
+    color: #BBDEFB;
+  }
+}
+
+.lesson-container-lab {
+  background-color: #F44336;
+
+  h6 {
+    font-weight: bold;
+    color: #FFCDD2;
+  }
+}
+
+.badge-current {
+  position:absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #fff !important;
+  font-weight: bold !important;
+}
+
+.badge-current-lecture {
+  color: #4CAF50 !important;
+}
+
+.badge-current-seminar {
+  color: #03A9F4 !important;
+}
+
+.badge-current-lab {
+  color: #F44336 !important;
+}
