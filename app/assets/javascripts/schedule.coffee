@@ -3,59 +3,70 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $('#table-lessons th').each (index, element) =>
-    remove = 0
-    tds = $(element).parents('table').find('tr td:nth-child(' + (index + 1) + ')')
-    tds.each (index, element) =>
-      if ($(element).html() == '')
-        remove++
-    if (remove == ($('#table-lessons tr').length - 5))
-        $(element).hide()
-        tds.hide()
-
+  remove_empty_columns("#table-lessons")
   $('#table-lessons').stickyTableHeaders()
+  setup_type_button type for type in get_lesson_types()
 
-  $('#lectures-button').attr("enabled", "true")
-  $('#seminars-button').attr("enabled", "true")
-  $('#labs-button').attr("enabled", "true")
+get_lesson_types = ->
+  ["lecture", "seminar", "lab"]
 
-  $('#lectures-button').click ->
-    toggle_lessons_type("lecture")
+get_number_of_service_headers = ->
+  number_of_weeks = 4
+  number_of_weeks + 1
 
-  $('#seminars-button').click ->
-    toggle_lessons_type("seminar")
+setup_type_button = (type) ->
+  $("##{type}s-button").attr("enabled", "true")
+  $("##{type}s-button").click ->
+    toggle_lessons_type "#{type}"
 
-  $('#labs-button').click ->
-    toggle_lessons_type("lab")
+remove_empty_columns = (table) ->
+  $("#{table} th").each (index, element) =>
+    column_cells = $(element).parents('table').find("tr td:nth-child(#{index + 1})")
+    if is_column_empty(table, column_cells)
+      $(element).hide()
+      column_cells.hide()
+
+is_column_empty = (table, column_cells) ->
+  count_empty_cells(column_cells) == ($("#{table} tr").length - get_number_of_service_headers())
+
+count_empty_cells = (cells) ->
+  remove = 0
+  cells.each (index, element) =>
+    remove++ if ($(element).html() == '')
+  remove
 
 toggle_lessons_type = (type) ->
-  button_id_selector = "#" + "#{type}s-button"
-  lesson_container_selector = "." + "lesson-container-#{type}"
-  if $(button_id_selector).attr("enabled") == "true"
-    hide_lessons(lesson_container_selector)
-    disable_type_button(button_id_selector, type)
+  if $("##{type}s-button").attr("enabled") == "true"
+    toggle_lessons_type_off(type)
   else
-    show_lessons(lesson_container_selector)
-    enable_type_button(button_id_selector, type)
+    toggle_lessons_type_on(type)
 
-hide_lessons = (lesson_container_selector) ->
+toggle_lessons_type_on = (type) ->
+  show_lessons(type)
+  enable_type_button(type)
+
+toggle_lessons_type_off = (type) ->
+  hide_lessons(type)
+  disable_type_button(type)
+
+hide_lessons = (type) ->
   $("#table-lessons").addClass("fixed-table")
-  $(lesson_container_selector).each (index, element) =>
+  $(".lesson-container-#{type}").each (index, element) =>
     $(element).addClass("lesson-container-hidden")
 
-show_lessons = (lesson_container_selector) ->
-  $(lesson_container_selector).each (index, element) =>
+show_lessons = (type) ->
+  $(".lesson-container-#{type}").each (index, element) =>
     $(element).removeClass("lesson-container-hidden")
 
-disable_type_button = (button_id_selector, type) ->
-  $(button_id_selector).attr("enabled", "false")
-  $(button_id_selector).removeClass("type-button")
-  $(button_id_selector).removeClass("#{type}s-button")
-  $(button_id_selector).addClass("btn-default")
+disable_type_button = (type) ->
+  $("##{type}s-button").attr("enabled", "false")
+  $("##{type}s-button").removeClass("type-button")
+  $("##{type}s-button").removeClass("#{type}s-button")
+  $("##{type}s-button").addClass("btn-default")
 
 
-enable_type_button = (button_id_selector, type) ->
-  $(button_id_selector).attr("enabled", "true")
-  $(button_id_selector).removeClass("btn-default")
-  $(button_id_selector).addClass("type-button")
-  $(button_id_selector).addClass("#{type}s-button")
+enable_type_button = (type) ->
+  $("##{type}s-button").attr("enabled", "true")
+  $("##{type}s-button").removeClass("btn-default")
+  $("##{type}s-button").addClass("type-button")
+  $("##{type}s-button").addClass("#{type}s-button")
