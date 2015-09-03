@@ -12,7 +12,7 @@ class ScheduleController < ApplicationController
   end
 
   def generate
-    @schedule_hash = parse_xml(Nokogiri::XML(open(form_url(params[:group_number]))), params[:subgroup_number])
+    @schedule_hash = parse_schedule_xml(Nokogiri::XML(open(form_url(params[:group_number]))), params[:subgroup_number])
     @current_week = calculate_current_week_number.to_s
     @current_day = Time.zone.now.to_date.cwday
     @current_time = get_current_time_string
@@ -30,10 +30,30 @@ class ScheduleController < ApplicationController
   end
 
   def form_url(group_number)
-    "http://www.bsuir.by/schedule/rest/schedule/#{group_number}"
+    "http://www.bsuir.by/schedule/rest/schedule/#{get_group_id_by_number(group_number)}"
   end
 
-  def parse_xml(xml_schedule, subgroup_number)
+  def get_group_id_by_number(group_number)
+    groups_hash = parse_groups_xml(Nokogiri::XML(open("http://www.bsuir.by/schedule/rest/studentGroup")))
+    find_group_id(groups_hash, group_number)
+  end
+
+  def parse_groups_xml(xml_groups)
+    Hash.from_xml(xml_groups.to_s)["studentGroupXmlModels"]["studentGroup"]
+  end
+
+  def find_group_id(groups_hash, group_number)
+    group_id = nil
+    groups_hash.each do |group_info|
+      if group_info["name"] == group_number
+        group_id = group_info["id"]
+        break
+      end
+    end
+    group_id
+  end
+
+  def parse_schedule_xml(xml_schedule, subgroup_number)
     raw_hash = Hash.from_xml(xml_schedule.to_s)["scheduleXmlModels"]["scheduleModel"]
     form_hash(raw_hash, subgroup_number)
   end
