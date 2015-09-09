@@ -1,4 +1,4 @@
-<%= form_tag "/get_group", method: "get", :class => "form-group center-block" do %>
+<%= form_tag "/get_group", method: "get", :class => "form-group center-block", :id => "subgroup-switch" do %>
   <%= hidden_field_tag :group_number, params[:group_number] %>
   <%= select_tag(:subgroup_number, options_for_select([['Подгруппа 1', 1], ['Подгруппа 2', 2]], params[:subgroup_number]), class: 'form-control dropdown-toggle', id: 'subgroup-switch', :onchange => "this.form.submit();") %>
 <% end %>

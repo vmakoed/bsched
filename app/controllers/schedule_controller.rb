@@ -118,7 +118,7 @@ class ScheduleController < ApplicationController
       lesson_hash = {
         "subject" => "#{raw_lesson_hash["subject"]}",
         "lessonType" => "#{raw_lesson_hash["lessonType"]}",
-        "auditory" => "#{raw_lesson_hash["auditory"]}",
+        "auditory" => extract_auditory(raw_lesson_hash["auditory"]),
         "employee" => extract_employee(raw_lesson_hash["employee"])
       }
     else
@@ -126,12 +126,42 @@ class ScheduleController < ApplicationController
     end
   end
 
-  def extract_employee(raw_employee_hash)
-    if raw_employee_hash
-      "#{raw_employee_hash["lastName"]} #{raw_employee_hash["firstName"][0,1]}. #{raw_employee_hash["middleName"][0,1]}."
+  def extract_auditory(raw_auditory)
+    auditory = ""
+    if raw_auditory.kind_of?(Array)
+      auditory = []
+      raw_auditory.each do |auditory_option|
+        auditory << "#{auditory_option}"
+      end
+      auditory = auditory.join(", ")
     else
-      nil
+      auditory = raw_auditory
     end
+    auditory
+  end
+
+  def extract_employee(raw_employee)
+    employee = ""
+    if raw_employee
+      if raw_employee.kind_of?(Array)
+        employee = []
+        raw_employee.each do |employee_hash|
+          employee << "#{initials_from_hash(employee_hash)}"
+        end
+        employee = employee.join(", ")
+      else
+        employee = "#{initials_from_hash(raw_employee)}"
+      end
+    end
+    employee
+  end
+
+  def initials_from_hash(hash)
+    "#{initials(hash["lastName"], hash["firstName"], hash["middleName"])}"
+  end
+
+  def initials(first_name, last_name, middle_name)
+    "#{first_name} #{last_name[0,1]}. #{middle_name[0,1]}."
   end
 
   def split_long_lesson(weekday_hash, long_lesson, week_number)

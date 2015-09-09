@@ -40,7 +40,7 @@
         <% else %>
           <tr>
         <% end %>
-            <td>
+            <td class="weekday-td">
               <h4>
                 <%= weekday %>
                 <% if week_number == current_week && weekday == weekdays[current_day - 1] %>
@@ -49,7 +49,7 @@
               </h4>
             </td>
             <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-              <td class="lesson-td" style="padding:2px"><%=
+              <td class="lesson-td"><%=
                   if schedule_hash[week_number][weekday]
                     if schedule_hash[week_number][weekday]
                       if schedule_hash[week_number][weekday][lesson_time_boundary]

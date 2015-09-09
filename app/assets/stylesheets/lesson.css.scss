@@ -2,11 +2,23 @@
   text-align: center;
   height: 100%;
   overflow: auto;
-  position:relative;
+  position: relative;
+  padding: 0px;
+  display: block;
+  overflow: hidden;
 
   h4 {
     color: #fff;
   }
+}
+
+.lesson-wrapper {
+  position: absolute;
+  padding: 2px;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .lesson-container-hidden {
