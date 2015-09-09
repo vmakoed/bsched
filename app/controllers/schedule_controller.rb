@@ -24,7 +24,7 @@ class ScheduleController < ApplicationController
           template: 'schedule/pdf/generate.pdf.erb',
           layout: 'pdf.html.erb',
           page_width: '297mm',
-          page_height: '800mm'
+          page_height: '875mm'
       end
     end
   end
