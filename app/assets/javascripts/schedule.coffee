@@ -6,6 +6,12 @@ $ ->
   remove_empty_columns("#table-lessons")
   $('#table-lessons').stickyTableHeaders()
   setup_type_button type for type in get_lesson_types()
+  scroll_to_current_week()
+
+scroll_to_current_week = ->
+  $('html, body').animate {
+    scrollTop: $(".tr-current-week").offset().top
+  }, 1000
 
 get_lesson_types = ->
   ["lecture", "seminar", "lab"]
