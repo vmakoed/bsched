@@ -1,10 +1,10 @@
 <div class="<%= "#{lesson_container lesson["lessonType"]}" %>">
+  <% if current %>
+    <span class="<%= "#{badge_current lesson["lessonType"]}" %>">Сейчас</span>
+  <% end %>
   <div class="lesson-wrapper">
     <h4><%= lesson["subject"] %></h4>
     <h6><%= lesson["employee"] %></h6>
     <h6><%= lesson["auditory"] %></h6>
-    <% if current %>
-      <span class="<%= "#{badge_current lesson["lessonType"]}" %>">Сейчас</span>
-    <% end %>
   </div>
 </div>
