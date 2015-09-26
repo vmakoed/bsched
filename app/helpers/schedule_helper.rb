@@ -61,6 +61,6 @@ module ScheduleHelper
   end
 
   def is_current_lesson?(current_time, lesson_time_boundary, week_number, current_week, weekday, current_day)
-    is_current_time?(current_time, lesson_time_boundary) && week_number == current_week && weekday == weekdays[current_day - 1]
+    is_current_time?(current_time, lesson_time_boundary) && week_number == current_week && weekday == get_weekdays[current_day - 1]
   end
 end
