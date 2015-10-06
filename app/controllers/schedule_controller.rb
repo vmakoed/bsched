@@ -193,6 +193,6 @@ class ScheduleController < ApplicationController
     min = "#{Time.zone.now.min}"
     hour.insert(0, "0") if hour.length == 1
     min.insert(0, "0") if min.length == 1
-    "#{hour}:{min}"
+    "#{hour}:#{min}"
   end
 end
