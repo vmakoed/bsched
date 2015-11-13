@@ -9,15 +9,15 @@ module ScheduleHelper
 
   def classes_by_lesson_types
     {
-      "ЛК" => "lecture",
-      "ПЗ" => "seminar",
-      "ЛР" => "lab"
+      'ЛК' => 'lecture',
+      'ПЗ' => 'seminar',
+      'ЛР' => 'lab'
     }
   end
 
   def th_class_for_time_boundary(current_time, lesson_time_boundary)
     if current_time >= lesson_time_boundary[0, 5] && current_time <= lesson_time_boundary[-5, 5]
-      "class = th-current-lesson"
+      'class = th-current-lesson'
     else
       nil
     end
@@ -25,9 +25,9 @@ module ScheduleHelper
 
   def tr_class_for_week(week_number, current_week)
     if week_number == current_week
-      "tr-current-week tr-current-week-header"
+      'tr-current-week tr-current-week-header'
     else
-      "weekday-tr"
+      'weekday-tr'
     end
   end
 
@@ -35,9 +35,9 @@ module ScheduleHelper
     weekdays = get_weekdays
     if week_number == current_week
       if weekday == weekdays[current_day - 1]
-        "class = tr-current-day"
+        'class = tr-current-day'
       else
-        "class = tr-current-week"
+        'class = tr-current-week'
       end
     else
       nil
@@ -48,7 +48,7 @@ module ScheduleHelper
     does_lesson_exist = false
     if schedule_hash[week_number][weekday]
       if schedule_hash[week_number][weekday][lesson_time_boundary]
-        if time_has_lessons = schedule_hash[week_number][weekday][lesson_time_boundary].any?
+        if schedule_hash[week_number][weekday][lesson_time_boundary].any?
           does_lesson_exist = true
         end
       end

@@ -8,7 +8,7 @@ class ScheduleController < ApplicationController
   end
 
   def get_group
-    redirect_to :action => "generate", :group_number => params[:group_number], :subgroup_number => params[:subgroup_number]
+    redirect_to :action => 'generate', :group_number => params[:group_number], :subgroup_number => params[:subgroup_number]
   end
 
   def generate
@@ -21,10 +21,10 @@ class ScheduleController < ApplicationController
       format.html
       format.pdf do
         render pdf: "schedule_#{params[:group_number]}_#{params[:subgroup_number]}",
-          template: 'schedule/pdf/generate.pdf.erb',
-          layout: 'pdf.html.erb',
-          page_width: '297mm',
-          page_height: '875mm'
+               template: 'schedule/pdf/generate.pdf.erb',
+               layout: 'pdf.html.erb',
+               page_width: '297mm',
+               page_height: '875mm'
       end
     end
   end
@@ -34,19 +34,19 @@ class ScheduleController < ApplicationController
   end
 
   def get_group_id_by_number(group_number)
-    groups_hash = parse_groups_xml(Nokogiri::XML(open("http://www.bsuir.by/schedule/rest/studentGroup")))
+    groups_hash = parse_groups_xml(Nokogiri::XML(open('http://www.bsuir.by/schedule/rest/studentGroup')))
     find_group_id(groups_hash, group_number)
   end
 
   def parse_groups_xml(xml_groups)
-    Hash.from_xml(xml_groups.to_s)["studentGroupXmlModels"]["studentGroup"]
+    Hash.from_xml(xml_groups.to_s)['studentGroupXmlModels']['studentGroup']
   end
 
   def find_group_id(groups_hash, group_number)
     group_id = nil
     groups_hash.each do |group_info|
-      if group_info["name"] == group_number
-        group_id = group_info["id"]
+      if group_info['name'] == group_number
+        group_id = group_info['id']
         break
       end
     end
@@ -54,7 +54,7 @@ class ScheduleController < ApplicationController
   end
 
   def parse_schedule_xml(xml_schedule, subgroup_number)
-    raw_hash = Hash.from_xml(xml_schedule.to_s)["scheduleXmlModels"]["scheduleModel"]
+    raw_hash = Hash.from_xml(xml_schedule.to_s)['scheduleXmlModels']['scheduleModel']
     form_hash(raw_hash, subgroup_number)
   end
 
@@ -71,7 +71,7 @@ class ScheduleController < ApplicationController
     week_hash = Hash.new
     weekdays = get_weekdays
     raw_hash.each_with_index do |(weekday_hash), index|
-      week_hash[weekdays[index]] = form_weekday_hash(weekday_hash["schedule"], week_number, subgroup_number)
+      week_hash[weekdays[index]] = form_weekday_hash(weekday_hash['schedule'], week_number, subgroup_number)
     end
     week_hash
   end
@@ -98,10 +98,12 @@ class ScheduleController < ApplicationController
 
   def add_lesson_to_weekday_hash(weekday_hash, lesson_hash, week_number, subgroup_number)
     lesson_time_boundaries = get_lesson_time_boundaries
-    if lesson_hash["numSubgroup"] == subgroup_number || lesson_hash["numSubgroup"] == "0"
-      weekday_hash["#{lesson_hash["lessonTime"]}"] ||= {}
-      if lesson_time_boundaries.include? "#{lesson_hash["lessonTime"]}"
-        weekday_hash["#{lesson_hash["lessonTime"]}"] = form_lesson_hash(lesson_hash, week_number) if form_lesson_hash(lesson_hash, week_number)
+    if lesson_hash['numSubgroup'] == subgroup_number || lesson_hash['numSubgroup'] == '0'
+      weekday_hash["#{lesson_hash['lessonTime']}"] ||= {}
+      if lesson_time_boundaries.include? "#{lesson_hash['lessonTime']}"
+        if form_lesson_hash(lesson_hash, week_number)
+          weekday_hash["#{lesson_hash['lessonTime']}"] = form_lesson_hash(lesson_hash, week_number)
+        end
       else
         split_long_lesson(weekday_hash, lesson_hash, week_number)
       end
@@ -116,13 +118,13 @@ class ScheduleController < ApplicationController
   end
 
   def form_lesson_hash(raw_lesson_hash, week_number)
-    if raw_lesson_hash["weekNumber"].include? week_number
+    if raw_lesson_hash['weekNumber'].include? week_number
       lesson_hash = Hash.new
       lesson_hash = {
-        "subject" => "#{raw_lesson_hash["subject"]}",
-        "lessonType" => "#{raw_lesson_hash["lessonType"]}",
-        "auditory" => extract_auditory(raw_lesson_hash["auditory"]),
-        "employee" => extract_employee(raw_lesson_hash["employee"])
+          'subject' => "#{raw_lesson_hash['subject']}",
+          'lessonType' => "#{raw_lesson_hash['lessonType']}",
+          'auditory' => extract_auditory(raw_lesson_hash['auditory']),
+          'employee' => extract_employee(raw_lesson_hash['employee'])
       }
     else
       nil
@@ -130,13 +132,13 @@ class ScheduleController < ApplicationController
   end
 
   def extract_auditory(raw_auditory)
-    auditory = ""
+    auditory = ''
     if raw_auditory.kind_of?(Array)
       auditory = []
       raw_auditory.each do |auditory_option|
         auditory << "#{auditory_option}"
       end
-      auditory = auditory.join(", ")
+      auditory = auditory.join(', ')
     else
       auditory = raw_auditory
     end
@@ -144,14 +146,14 @@ class ScheduleController < ApplicationController
   end
 
   def extract_employee(raw_employee)
-    employee = ""
+    employee = ''
     if raw_employee
       if raw_employee.kind_of?(Array)
         employee = []
         raw_employee.each do |employee_hash|
           employee << "#{initials_from_hash(employee_hash)}"
         end
-        employee = employee.join(", ")
+        employee = employee.join(', ')
       else
         employee = "#{initials_from_hash(raw_employee)}"
       end
@@ -160,7 +162,7 @@ class ScheduleController < ApplicationController
   end
 
   def initials_from_hash(hash)
-    "#{initials(hash["lastName"], hash["firstName"], hash["middleName"])}"
+    "#{initials(hash['lastName'], hash['firstName'], hash['middleName'])}"
   end
 
   def initials(first_name, last_name, middle_name)
@@ -168,8 +170,8 @@ class ScheduleController < ApplicationController
   end
 
   def split_long_lesson(weekday_hash, long_lesson, week_number)
-    start_time = long_lesson["lessonTime"][0, 5]
-    finish_time = long_lesson["lessonTime"][-5, 5]
+    start_time = long_lesson['lessonTime'][0, 5]
+    finish_time = long_lesson['lessonTime'][-5, 5]
     lesson_time_boundaries = get_lesson_time_boundaries
     lesson_times = lesson_time_boundaries.select {|time_boundary| time_boundary[0, 5] >= start_time && time_boundary[-5, 5] <= finish_time}
     lesson_times.each do |lesson_time|
@@ -191,8 +193,8 @@ class ScheduleController < ApplicationController
   def get_current_time_string
     hour = "#{Time.zone.now.hour}"
     min = "#{Time.zone.now.min}"
-    hour.insert(0, "0") if hour.length == 1
-    min.insert(0, "0") if min.length == 1
+    hour.insert(0, '0') if hour.length == 1
+    min.insert(0, '0') if min.length == 1
     "#{hour}:#{min}"
   end
 end

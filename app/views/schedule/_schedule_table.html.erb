@@ -22,7 +22,7 @@
             <td colspan="100%">
               <h5 class="weekday-label">
                 Неделя <%= week_number %>
-                <%= " (текущая)" if week_number == current_week %>
+                <%= ' (текущая)' if week_number == current_week %>
               </h5>
             </td>
           </tr>
@@ -32,7 +32,7 @@
               <h4>
                 <%= weekday %>
                 <% if week_number == current_week && weekday == weekdays[current_day - 1] %>
-                  <br><%= " (сегодня)" %>
+                  <br><%= ' (сегодня)' %>
                 <% end %>
               </h4>
             </td>
