@@ -12,10 +12,13 @@ class ScheduleController < ApplicationController
   end
 
   def generate
-    @schedule_hash = parse_schedule_xml(Nokogiri::XML(open(form_url(params[:group_number]))), params[:subgroup_number])
     @current_week = calculate_current_week_number.to_s
     @current_day = Time.zone.now.to_date.cwday
     @current_time = get_current_time_string
+    @subjects_list = Set.new
+    @employees_list = Set.new
+    @auditories_list = Set.new
+    @schedule_hash = parse_schedule_xml(Nokogiri::XML(open(form_url(params[:group_number]))), params[:subgroup_number])
 
     respond_to do |format|
       format.html
@@ -119,6 +122,8 @@ class ScheduleController < ApplicationController
 
   def form_lesson_hash(raw_lesson_hash, week_number)
     if raw_lesson_hash['weekNumber'].include? week_number
+      @subjects_list << raw_lesson_hash['subject']
+
       lesson_hash = Hash.new
       lesson_hash = {
           'subject' => "#{raw_lesson_hash['subject']}",
@@ -142,6 +147,7 @@ class ScheduleController < ApplicationController
     else
       auditory = raw_auditory
     end
+    @auditories_list << auditory unless auditory.blank?
     auditory
   end
 
@@ -158,6 +164,7 @@ class ScheduleController < ApplicationController
         employee = "#{initials_from_hash(raw_employee)}"
       end
     end
+    @employees_list << employee unless employee.blank?
     employee
   end
 

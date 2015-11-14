@@ -8,6 +8,24 @@ $ ->
   setup_type_button type for type in get_lesson_types()
   scroll_to_current_week()
 
+  $("input[name='info-checkbox']").change ->
+    alter_lessons(this.value, this.checked)
+
+  $("input[name='lesson-type-checkbox']").change ->
+    toggle_lessons_type(this.value)
+
+alter_lessons = (info, is_to_enable) ->
+  lessons = collect_lessons_with_info(info)
+  if (is_to_enable)
+    lessons.each (index, element) =>
+      $(element).removeClass("lesson-container-hidden")
+  else
+    lessons.each (index, element) =>
+      $(element).addClass("lesson-container-hidden")
+
+collect_lessons_with_info = (info) ->
+  $(".lesson-container:contains(#{info})")
+
 scroll_to_current_week = ->
   $('html, body').animate {
     scrollTop: $(".tr-current-week").offset().top

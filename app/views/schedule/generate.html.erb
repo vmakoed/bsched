@@ -1,3 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Предметы
+        </div>
+        <div class="panel-body">
+          <% @subjects_list.map do |subject| %>
+              <input type="checkbox" name="info-checkbox" value="<%= subject %>" checked><%= subject %><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Преподаватели
+        </div>
+        <div class="panel-body">
+          <% @employees_list.map do |employee| %>
+              <input type="checkbox" name="info-checkbox" value="<%= employee %>" checked><%= employee %><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Аудитории
+        </div>
+        <div class="panel-body">
+          <% @auditories_list.map do |auditory| %>
+              <input type="checkbox" name="info-checkbox" value="<%= auditory %>" checked><%= auditory %><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Занятия
+        </div>
+        <div class="panel-body">
+          <input type="checkbox" name="lesson-type-checkbox" value="lecture" checked>ЛК<br>
+          <input type="checkbox" name="lesson-type-checkbox" value="seminar" checked>ПЗ<br>
+          <input type="checkbox" name="lesson-type-checkbox" value="lab" checked>ЛР<br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <% title "Группа #{params[:group_number]}, подгруппа #{params[:subgroup_number]}" %>
 
 <div class="container-fluid">
