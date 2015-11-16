@@ -13,7 +13,7 @@ class ScheduleController < ApplicationController
 
   def generate
     @current_week = calculate_current_week_number.to_s
-    @current_day = Time.zone.now.to_date.cwday
+    @current_day = Time.zone.now. to_date.cwday
     @current_time = get_current_time_string
     @subjects_list = Set.new
     @employees_list = Set.new
@@ -124,9 +124,7 @@ class ScheduleController < ApplicationController
     if raw_lesson_hash['weekNumber'].include? week_number
       @subjects_list << raw_lesson_hash['subject']
 
-      lesson_hash = Hash.new
-      lesson_hash = {
-          'subject' => "#{raw_lesson_hash['subject']}",
+      {   'subject' => "#{raw_lesson_hash['subject']}",
           'lessonType' => "#{raw_lesson_hash['lessonType']}",
           'auditory' => extract_auditory(raw_lesson_hash['auditory']),
           'employee' => extract_employee(raw_lesson_hash['employee'])
@@ -137,7 +135,6 @@ class ScheduleController < ApplicationController
   end
 
   def extract_auditory(raw_auditory)
-    auditory = ''
     if raw_auditory.kind_of?(Array)
       auditory = []
       raw_auditory.each do |auditory_option|

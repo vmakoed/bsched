@@ -6,13 +6,39 @@ $ ->
   remove_empty_columns("#table-lessons")
   $('#table-lessons').stickyTableHeaders()
   setup_type_button type for type in get_lesson_types()
+  setup_checkbox_actions()
   scroll_to_current_week()
 
+setup_checkbox_actions = ->
+  $("input[name='all-info-checkbox']").change ->
+    $(this).nextAll().each (index, element) =>
+      $(element).prop('checked', this.checked)
+      reindex_lessons()
+
   $("input[name='info-checkbox']").change ->
-    alter_lessons(this.value, this.checked)
+    #TODO: disable all-checkbox
+    reindex_lessons()
 
   $("input[name='lesson-type-checkbox']").change ->
-    toggle_lessons_type(this.value)
+    reindex_lessons()
+
+reindex_lessons = ->
+  enable_all_lessons()
+  disable_unchecked_lessons()
+
+enable_all_lessons = ->
+  $("input[name='info-checkbox']").each (index, element) =>
+    alter_lessons($(element).val(), true)
+
+  $("input[name='lesson-type-checkbox']").each (index, element) =>
+    toggle_lessons_type_on($(element).val())
+
+disable_unchecked_lessons = ->
+  $("input[name='info-checkbox']").each (index, element) =>
+    alter_lessons($(element).val(), false) if ($(element).prop('checked') == false)
+
+  $("input[name='lesson-type-checkbox']").each (index, element) =>
+    toggle_lessons_type_off($(element).val()) if ($(element).prop('checked') == false)
 
 alter_lessons = (info, is_to_enable) ->
   lessons = collect_lessons_with_info(info)
