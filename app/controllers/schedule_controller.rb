@@ -66,7 +66,6 @@ class ScheduleController < ApplicationController
 
     def form_hash(raw_hash, subgroup_number)
       schedule_hash = Hash.new
-      week_numbers = get_week_numbers
       week_numbers.each do |week_number|
         schedule_hash[week_number] = form_week_hash(raw_hash, week_number, subgroup_number)
       end
@@ -75,7 +74,6 @@ class ScheduleController < ApplicationController
 
     def form_week_hash(raw_hash, week_number, subgroup_number)
       week_hash = Hash.new
-      weekdays = get_weekdays
       raw_hash.each_with_index do |(weekday_hash), index|
         week_hash[weekdays[index]] = form_weekday_hash(weekday_hash['schedule'], week_number, subgroup_number)
       end
@@ -103,7 +101,6 @@ class ScheduleController < ApplicationController
     end
 
     def add_lesson_to_weekday_hash(weekday_hash, lesson_hash, week_number, subgroup_number)
-      lesson_time_boundaries = get_lesson_time_boundaries
       if lesson_hash['numSubgroup'] == subgroup_number || lesson_hash['numSubgroup'] == '0'
         weekday_hash["#{lesson_hash['lessonTime']}"] ||= {}
         if lesson_time_boundaries.include? "#{lesson_hash['lessonTime']}"
@@ -179,7 +176,6 @@ class ScheduleController < ApplicationController
     def split_long_lesson(weekday_hash, long_lesson, week_number)
       start_time = long_lesson['lessonTime'][0, 5]
       finish_time = long_lesson['lessonTime'][-5, 5]
-      lesson_time_boundaries = get_lesson_time_boundaries
       lesson_times = lesson_time_boundaries.select {|time_boundary| time_boundary[0, 5] >= start_time && time_boundary[-5, 5] <= finish_time}
       lesson_times.each do |lesson_time|
         weekday_hash["#{lesson_time}"] = form_lesson_hash(long_lesson, week_number) if form_lesson_hash(long_lesson, week_number)
