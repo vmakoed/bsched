@@ -3,5 +3,5 @@
       <%= text_field_tag :group_number, nil, class: 'form-control', value: params[:group_number] %>
     </div>
     <%= select_tag(:subgroup_number, options_for_select([['Подгруппа 1', 1], ['Подгруппа 2', 2]], params[:subgroup_number]), class: 'form-control dropdown-toggle') %>
-    <%= submit_tag 'Показать расписание', class: 'btn btn-lg btn-primary' %>
+    <%= submit_tag 'Показать', class: 'btn btn-lg btn-primary' %>
 <% end %>
