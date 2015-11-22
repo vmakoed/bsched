@@ -12,8 +12,10 @@
   position: relative;
   height: 100%;
   overflow-y: auto;
+}
 
-  .table th, .table td {
+#schedule-table, #schedule-table-pdf {
+    .table th, .table td {
     border: none !important;
   }
 

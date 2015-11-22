@@ -1,56 +1,48 @@
-<% weekdays = get_weekdays %>
-<% lesson_time_boundaries = get_lesson_time_boundaries %>
-<% week_numbers = get_week_numbers -%>
-
-<div class="table-responsive">
-  <table class="table table-responsive" id="table-lessons">
-    <thead>
+<div id="schedule-table-pdf">
+  <div class="table-responsive">
+    <table class="table table-responsive" id="table-lessons">
+      <thead>
       <tr class="table-header">
-        <th><h5><%= "#{params[:group_number]} (#{params[:subgroup_number]})" %></h5></th>
+        <th></th>
         <% lesson_time_boundaries.each do |lesson_time_boundary| %>
             <th>
-            <h5>
-              <%= lesson_time_boundary %>
-            </h5>
-          </th>
+              <h5>
+                <%= lesson_time_boundary %>
+              </h5>
+            </th>
         <% end %>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <% week_numbers.each do |week_number| %>
-          <tr class="weekday-tr ">
+          <tr>
             <td colspan="100%">
               <h5 class="weekday-label">
                 Неделя <%= week_number %>
               </h5>
             </td>
           </tr>
-        <% weekdays.each do |weekday| %>
-          <tr>
-            <td class="weekday-td">
-              <h4>
-                <%= weekday %>
-              </h4>
-            </td>
-            <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-              <td class="lesson-td"><%=
-                  if schedule_hash[week_number][weekday]
-                    if schedule_hash[week_number][weekday]
-                      if schedule_hash[week_number][weekday][lesson_time_boundary]
-                        if schedule_hash[week_number][weekday][lesson_time_boundary].any?
+          <% weekdays.each do |weekday| %>
+              <tr>
+                <td class="weekday-td">
+                  <h4>
+                    <%= weekday %>
+                  </h4>
+                </td>
+                <% lesson_time_boundaries.each do |lesson_time_boundary| %>
+                    <td class="lesson-td"><%=
+                        if does_lesson_exist?(schedule_hash, week_number, weekday, lesson_time_boundary)
                           render partial: 'schedule/pdf/lesson', locals:
-                            {
-                              lesson: schedule_hash[week_number][weekday][lesson_time_boundary]
-                            }
+                              {
+                                  lesson: schedule_hash[week_number][weekday][lesson_time_boundary],
+                              }
                         end
-                      end
-                    end
-                  end
-                %></td>
-            <% end %>
-          </tr>
-        <% end %>
+                    %></td>
+                <% end %>
+              </tr>
+          <% end %>
       <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
