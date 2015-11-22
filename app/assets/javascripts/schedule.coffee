@@ -4,7 +4,7 @@
 
 $ ->
   remove_empty_columns("#table-lessons")
-  $('#table-lessons').stickyTableHeaders()
+  $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
   setup_type_button type for type in get_lesson_types()
   setup_checkbox_actions()
   scroll_to_current_week()

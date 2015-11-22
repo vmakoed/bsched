@@ -1,0 +1,18 @@
+#filters-sidebar-wrapper {
+  height: 100%;
+  position: fixed;
+  left: 0;
+  padding-bottom: 70px;
+  padding-right: 0px;
+  border-right: 1px solid #E0E0E0;
+}
+
+#filters-sidebar {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+}
+
+#filters-sidebar .list-group-item {
+  border: none;
+}

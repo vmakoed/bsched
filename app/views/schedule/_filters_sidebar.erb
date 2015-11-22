@@ -1,0 +1,87 @@
+<div id="filters-sidebar">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Занятия
+        </div>
+        <div class="panel-body">
+          <div class="checkbox">
+            <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все занятия</b></label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="lecture" checked>Лекции
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="seminar" checked>Практические
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="lab" checked>Лабораторные
+            </label>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Предметы
+        </div>
+        <div class="panel-body">
+          <div class="checkbox">
+            <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все предметы</b></label>
+          </div>
+          <% subjects_list.map do |subject| %>
+            <div class="checkbox">
+              <label><input type="checkbox" class="info-checkbox" value="<%= subject %>" checked><%= subject %></label>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Преподаватели
+        </div>
+        <div class="panel-body">
+          <div class="checkbox">
+            <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все преподаватели</b></label>
+          </div>
+          <% employees_list.map do |employee| %>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" class="info-checkbox" value="<%= employee %>" checked><%= employee %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Аудитории
+        </div>
+        <div class="panel-body">
+          <div class="checkbox">
+            <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все аудитории</b></label>
+          </div>
+          <% auditories_list.map do |auditory| %>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" class="info-checkbox" value="<%= auditory %>" checked>
+                <%= auditory %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

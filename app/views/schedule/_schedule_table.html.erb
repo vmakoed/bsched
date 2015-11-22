@@ -2,54 +2,56 @@
 <% lesson_time_boundaries = get_lesson_time_boundaries %>
 <% week_numbers = get_week_numbers %>
 
-<div class="table-responsive">
-  <table class="table table-responsive" id="table-lessons">
-    <thead>
-      <tr class="table-header">
-        <th><h5><%= "#{params[:group_number]} (#{params[:subgroup_number]})" %></h5></th>
-        <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-          <th <%= "#{th_class_for_time_boundary(current_time, lesson_time_boundary)}" %>>
-            <h5>
-              <%= lesson_time_boundary %>
-            </h5>
-          </th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% week_numbers.each do |week_number| %>
-          <tr class=<%= "#{tr_class_for_week(week_number, current_week)}" %>>
-            <td colspan="100%">
-              <h5 class="weekday-label">
-                Неделя <%= week_number %>
-                <%= ' (текущая)' if week_number == current_week %>
+<div id="schedule-table">
+  <div class="table-responsive">
+    <table class="table table-responsive" id="table-lessons">
+      <thead>
+        <tr class="table-header">
+          <th></th>
+          <% lesson_time_boundaries.each do |lesson_time_boundary| %>
+            <th <%= "#{th_class_for_time_boundary(current_time, lesson_time_boundary)}" %>>
+              <h5>
+                <%= lesson_time_boundary %>
               </h5>
-            </td>
-          </tr>
-        <% weekdays.each do |weekday| %>
-          <tr <%= "#{tr_class_for_day(week_number, current_week, weekday, current_day)}" %>>
-            <td class="weekday-td">
-              <h4>
-                <%= weekday %>
-                <% if week_number == current_week && weekday == weekdays[current_day - 1] %>
-                  <br><%= ' (сегодня)' %>
-                <% end %>
-              </h4>
-            </td>
-            <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-              <td class="lesson-td"><%=
-                  if does_lesson_exist?(schedule_hash, week_number, weekday, lesson_time_boundary)
-                    render partial: 'lesson', locals:
-                    {
-                      lesson: schedule_hash[week_number][weekday][lesson_time_boundary],
-                      current: is_current_lesson?(current_time, lesson_time_boundary, week_number, current_week, weekday, current_day)
-                    }
-                  end
-                %></td>
-            <% end %>
-          </tr>
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% week_numbers.each do |week_number| %>
+            <tr class=<%= "#{tr_class_for_week(week_number, current_week)}" %>>
+              <td colspan="100%">
+                <h5 class="weekday-label">
+                  Неделя <%= week_number %>
+                  <%= ' (текущая)' if week_number == current_week %>
+                </h5>
+              </td>
+            </tr>
+          <% weekdays.each do |weekday| %>
+            <tr <%= "#{tr_class_for_day(week_number, current_week, weekday, current_day)}" %>>
+              <td class="weekday-td">
+                <h4>
+                  <%= weekday %>
+                  <% if week_number == current_week && weekday == weekdays[current_day - 1] %>
+                    <br><%= '(сегодня)' %>
+                  <% end %>
+                </h4>
+              </td>
+              <% lesson_time_boundaries.each do |lesson_time_boundary| %>
+                <td class="lesson-td"><%=
+                    if does_lesson_exist?(schedule_hash, week_number, weekday, lesson_time_boundary)
+                      render partial: 'lesson', locals:
+                      {
+                        lesson: schedule_hash[week_number][weekday][lesson_time_boundary],
+                        current: is_current_lesson?(current_time, lesson_time_boundary, week_number, current_week, weekday, current_day)
+                      }
+                    end
+                  %></td>
+              <% end %>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>

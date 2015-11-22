@@ -2,16 +2,16 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2">
-      <%= render partial: 'lesson_filters_panel', locals: { subjects_list: @subjects_list, employees_list: @employees_list, auditories_list: @auditories_list } %>
+    <div class="col-md-2 col-xs-0" id="filters-sidebar-wrapper">
+      <%= render partial: 'filters_sidebar', locals: {subjects_list: @subjects_list, employees_list: @employees_list, auditories_list: @auditories_list } %>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10 col-xs-12 pull-right" id="schedule-table-wrapper">
       <%= render partial: 'schedule_table', locals: { schedule_hash: @schedule_hash, current_week: @current_week, current_day: @current_day, current_time: @current_time } %>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <%= render 'toolbar' %>
+      <%= render 'footer' %>
     </div>
   </div>
 </div>

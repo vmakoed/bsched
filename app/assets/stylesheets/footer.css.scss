@@ -1,0 +1,46 @@
+#toolbar {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  height: 70px;
+  padding-top: 10px;
+  background-color: #fff;
+
+  .type-button {
+    color: #fff !important;
+  }
+
+  #pdf-button {
+    color: #FFFFFF;
+    background-color: #5C6BC0;
+
+    &:hover {
+      background-color: #3F51B5;
+    }
+  }
+
+  #home-button {
+    color: #FFFFFF;
+    background-color: #D32F2F;
+
+    &:hover {
+      background-color: #B71C1C;
+    }
+  }
+
+  #toolbar-group-input input, #toolbar-group-input select {
+    height: 43px;
+    font-size: 17px !important;
+  }
+
+  .form-inline {
+    text-align: right;
+
+    > * {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+}
+

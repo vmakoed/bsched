@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def get_weekdays
-    %w(Понедельник Вторник Среда Четверг Пятница Суббота)
+    %w(ПН ВТ СР ЧТ ПТ СБ)
   end
 
   def get_lesson_time_boundaries
