@@ -13,7 +13,7 @@ class ScheduleController < ApplicationController
 
   def generate
     @current_week = calculate_current_week_number.to_s
-    @current_day = Time.zone.now. to_date.cwday
+    @current_day = Time.zone.now.to_date.cwday
     @current_time = get_current_time_string
     @subjects_list = Set.new
     @employees_list = Set.new

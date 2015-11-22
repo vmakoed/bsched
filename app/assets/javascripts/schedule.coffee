@@ -10,44 +10,48 @@ $ ->
   scroll_to_current_week()
 
 setup_checkbox_actions = ->
-  $("input[name='all-info-checkbox']").change ->
-    $(this).nextAll().each (index, element) =>
-      $(element).prop('checked', this.checked)
-      reindex_lessons()
-
-  $("input[name='info-checkbox']").change ->
-    #TODO: disable all-checkbox
+  $('input.all-info-checkbox:checkbox').change ->
+    for info_checkbox in $(this).parents('.panel-body').find('input.info-checkbox:checkbox')
+      $(info_checkbox).prop('checked', this.checked)
     reindex_lessons()
 
-  $("input[name='lesson-type-checkbox']").change ->
+  $('input.info-checkbox:checkbox').change ->
+    handle_all_info_checkbox($(this))
     reindex_lessons()
+
+handle_all_info_checkbox = (checkbox) ->
+  is_list_checked = is_list_all_checked($(checkbox))
+  $(checkbox).parents('.panel-body').find('input.all-info-checkbox:checkbox').prop('checked', is_list_checked)
+
+is_list_all_checked = (checkbox) ->
+  is_checked = true
+  for element in $(checkbox).parents('.panel-body').find('input.info-checkbox:checkbox')
+    if $(element).prop('checked') == false
+      is_checked = false
+      break
+  is_checked
 
 reindex_lessons = ->
   enable_all_lessons()
   disable_unchecked_lessons()
 
 enable_all_lessons = ->
-  $("input[name='info-checkbox']").each (index, element) =>
-    alter_lessons($(element).val(), true)
-
-  $("input[name='lesson-type-checkbox']").each (index, element) =>
-    toggle_lessons_type_on($(element).val())
+  alter_lessons($(checkbox).val(), true) for checkbox in $('input.info-checkbox:checkbox')
+  toggle_lessons_type_on($(checkbox).val()) for checkbox in $("input.lesson-type-checkbox:checkbox")
 
 disable_unchecked_lessons = ->
-  $("input[name='info-checkbox']").each (index, element) =>
-    alter_lessons($(element).val(), false) if ($(element).prop('checked') == false)
+  for info_checkbox in $('input.info-checkbox:checkbox')
+    alter_lessons($(info_checkbox).val(), false) if ($(info_checkbox).prop('checked') == false)
 
-  $("input[name='lesson-type-checkbox']").each (index, element) =>
-    toggle_lessons_type_off($(element).val()) if ($(element).prop('checked') == false)
+  for lesson_type_checkbox in $("input.lesson-type-checkbox:checkbox")
+    toggle_lessons_type_off($(lesson_type_checkbox).val()) if ($(lesson_type_checkbox).prop('checked') == false)
 
 alter_lessons = (info, is_to_enable) ->
   lessons = collect_lessons_with_info(info)
   if (is_to_enable)
-    lessons.each (index, element) =>
-      $(element).removeClass("lesson-container-hidden")
+    $(lesson).removeClass("lesson-container-hidden") for lesson in lessons
   else
-    lessons.each (index, element) =>
-      $(element).addClass("lesson-container-hidden")
+    $(lesson).addClass("lesson-container-hidden") for lesson in lessons
 
 collect_lessons_with_info = (info) ->
   $(".lesson-container:contains(#{info})")
@@ -70,23 +74,23 @@ setup_type_button = (type) ->
     toggle_lessons_type "#{type}"
 
 remove_empty_columns = (table) ->
-  $("#{table} th").each (index, element) =>
-    column_cells = $(element).parents('table').find("tr td:nth-child(#{index + 1})")
+  for table_header, index in $("#{table} th")
+    column_cells = $(table_header).parents('table').find("tr td:nth-child(#{index + 1})")
     if is_column_empty(table, column_cells)
-      $(element).hide()
-      column_cells.hide()
+      $(table_header).hide()
+      $(column_cells).hide()
 
 is_column_empty = (table, column_cells) ->
   count_empty_cells(column_cells) == ($("#{table} tr").length - get_number_of_service_headers())
 
 count_empty_cells = (cells) ->
   remove = 0
-  cells.each (index, element) =>
-    remove++ if ($(element).html() == '')
+  for cell in cells
+    remove++ if ($(cell).html() == '')
   remove
 
 toggle_lessons_type = (type) ->
-  if $("##{type}s-button").attr("enabled") == "true"
+  if $("##{type}s-button").prop("enabled") == true
     toggle_lessons_type_off(type)
   else
     toggle_lessons_type_on(type)
@@ -101,12 +105,10 @@ toggle_lessons_type_off = (type) ->
 
 hide_lessons = (type) ->
   $("#table-lessons").addClass("fixed-table")
-  $(".lesson-container-#{type}").each (index, element) =>
-    $(element).addClass("lesson-container-hidden")
+  $(lesson_container).addClass("lesson-container-hidden") for lesson_container in $(".lesson-container-#{type}")
 
 show_lessons = (type) ->
-  $(".lesson-container-#{type}").each (index, element) =>
-    $(element).removeClass("lesson-container-hidden")
+  $(lesson_container).removeClass("lesson-container-hidden") for lesson_container in $(".lesson-container-#{type}")
 
 disable_type_button = (type) ->
   $("##{type}s-button").attr("enabled", "false")
