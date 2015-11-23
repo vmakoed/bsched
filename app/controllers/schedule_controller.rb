@@ -123,12 +123,13 @@ class ScheduleController < ApplicationController
     def form_lesson_hash(raw_lesson_hash, week_number)
       if raw_lesson_hash['weekNumber'].include? week_number
         @subjects_list << raw_lesson_hash['subject']
-
-        {   'subject' => "#{raw_lesson_hash['subject']}",
-            'lessonType' => "#{raw_lesson_hash['lessonType']}",
-            'auditory' => extract_auditory(raw_lesson_hash['auditory']),
-            'employee' => extract_employee(raw_lesson_hash['employee'])
-        }
+        if raw_lesson_hash['lessonType'] != 'Экзамен' && raw_lesson_hash['lessonType'] != 'Консультация'
+          {   'subject' => "#{raw_lesson_hash['subject']}",
+              'lessonType' => "#{raw_lesson_hash['lessonType']}",
+              'auditory' => extract_auditory(raw_lesson_hash['auditory']),
+              'employee' => extract_employee(raw_lesson_hash['employee'])
+          }
+        end
       else
         nil
       end
