@@ -1,28 +1,25 @@
 <div id="schedule-table-pdf">
-  <div class="table-responsive">
-    <table class="table table-responsive" id="table-lessons">
-      <thead>
-      <tr class="table-header">
-        <th></th>
-        <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-            <th>
-              <h5>
-                <%= lesson_time_boundary %>
-              </h5>
-            </th>
-        <% end %>
-      </tr>
-      </thead>
-      <tbody>
-      <% week_numbers.each do |week_number| %>
-          <tr>
-            <td colspan="100%">
-              <h5 class="weekday-label">
-                Неделя <%= week_number %>
-              </h5>
-            </td>
-          </tr>
-          <% weekdays.each do |weekday| %>
+  <div class="page-break">
+    <% week_numbers.each do |week_number| %>
+      <div class="table-responsive">
+        <table class="table table-responsive table-lessons-pdf">
+          <tbody>
+            <tr>
+              <td colspan="100%">
+                <h5 class="weekday-label">Неделя <%= week_number %></h5>
+              </td>
+            </tr>
+            <tr class="table-header">
+              <th></th>
+              <% lesson_time_boundaries.each do |lesson_time_boundary| %>
+                <th>
+                  <h5>
+                    <%= lesson_time_boundary %>
+                  </h5>
+                </th>
+              <% end %>
+            </tr>
+            <% weekdays.each do |weekday| %>
               <tr>
                 <td class="weekday-td">
                   <h4>
@@ -30,19 +27,20 @@
                   </h4>
                 </td>
                 <% lesson_time_boundaries.each do |lesson_time_boundary| %>
-                    <td class="lesson-td"><%=
-                        if does_lesson_exist?(schedule_hash, week_number, weekday, lesson_time_boundary)
-                          render partial: 'schedule/pdf/lesson', locals:
-                              {
-                                  lesson: schedule_hash[week_number][weekday][lesson_time_boundary],
-                              }
-                        end
-                    %></td>
+                  <td class="lesson-td"><%=
+                    if does_lesson_exist?(@schedule_hash, week_number, weekday, lesson_time_boundary)
+                      render partial: 'schedule/pdf/lesson', locals:
+                        {
+                          lesson: @schedule_hash[week_number][weekday][lesson_time_boundary],
+                        }
+                    end
+                  %></td>
                 <% end %>
               </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
   </div>
 </div>

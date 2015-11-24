@@ -25,10 +25,9 @@ class ScheduleController < ApplicationController
       format.html
       format.pdf do
         render pdf: "schedule_#{params[:group_number]}_#{params[:subgroup_number]}",
-               template: 'schedule/pdf/generate.pdf.erb',
+               template: 'schedule/pdf/_schedule_table.pdf.erb',
                layout: 'pdf.html.erb',
-               page_width: '297mm',
-               page_height: '875mm'
+               orientation: 'landscape'
       end
     end
   end

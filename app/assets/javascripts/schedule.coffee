@@ -3,7 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  remove_empty_columns("#table-lessons")
+  remove_empty_columns($('#table-lessons'), get_number_of_service_headers('html'))
+  for table in $('.table-lessons-pdf')
+    remove_empty_columns($(table), get_number_of_service_headers('pdf'))
+
   $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
   setup_type_button type for type in get_lesson_types()
   setup_checkbox_actions()
@@ -64,24 +67,29 @@ scroll_to_current_week = ->
 get_lesson_types = ->
   ["lecture", "seminar", "lab"]
 
-get_number_of_service_headers = ->
-  number_of_weeks = 4
-  number_of_weeks + 1
+get_number_of_service_headers = (format) ->
+  number_of_time_boundaries_headers = 1
+  if format == 'pdf'
+    number_of_week_headers = 1
+  else
+    number_of_week_headers = 4
+
+  number_of_week_headers + number_of_time_boundaries_headers
 
 setup_type_button = (type) ->
   $("##{type}s-button").attr("enabled", "true")
   $("##{type}s-button").click ->
     toggle_lessons_type "#{type}"
 
-remove_empty_columns = (table) ->
-  for table_header, index in $("#{table} th")
+remove_empty_columns = (table, num_of_service_headers) ->
+  for table_header, index in $(table).find('th')
     column_cells = $(table_header).parents('table').find("tr td:nth-child(#{index + 1})")
-    if is_column_empty(table, column_cells)
+    if is_column_empty(table, column_cells, num_of_service_headers)
       $(table_header).hide()
       $(column_cells).hide()
 
-is_column_empty = (table, column_cells) ->
-  count_empty_cells(column_cells) == ($("#{table} tr").length - get_number_of_service_headers())
+is_column_empty = (table, column_cells, num_of_service_headers) ->
+  count_empty_cells(column_cells) == ($(table).find('tr').length - num_of_service_headers)
 
 count_empty_cells = (cells) ->
   remove = 0

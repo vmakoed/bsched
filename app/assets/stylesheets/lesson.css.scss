@@ -1,13 +1,11 @@
 .lesson-container {
   text-align: center;
   height: 100%;
-  overflow: auto;
   position: relative;
-  padding: 0px;
+  padding: 0;
   display: block;
-  overflow: hidden;
 
-  h4 {
+  h4, h5 {
     color: #fff;
   }
 }

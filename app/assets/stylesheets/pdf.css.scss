@@ -3,5 +3,11 @@
   clear: both;
   page-break-after: auto;
   width: 297mm;
-  height: 875mm;
+  height: 210mm;
+}
+
+.page-break {
+  display:block;
+  clear:both;
+  page-break-after:always;
 }
