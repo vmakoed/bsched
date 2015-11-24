@@ -1,0 +1,21 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= link_to root_path, class: 'navbar-brand', id: 'home-button' do %>
+        BSUIR Schedule
+      <% end  %>
+    </div>
+    <div class="collapse navbar-collapse">
+      <div class="nav navbar-nav navbar-right">
+        <button type="button" class="btn btn-link navbar-btn navbar-button">
+          <%= link_to (url_for(format: :pdf)), target: '_blank' do %>
+              <span class="glyphicon glyphicon-download"></span>
+          <% end  %>
+        </button>
+      </div>
+      <div class="navbar-form navbar-right">
+        <%= render 'schedule/header/group_switch' %>
+      </div>
+    </div>
+  </div>
+</nav>
