@@ -1,15 +1,15 @@
 .navbar-button {
   padding: 2px !important;
-  margin: 0 8px;
+  margin-right: 10px;
+  width: 37px;
+  height: 37px;
 
   span {
     font-size: 2em;
+    vertical-align: middle;
   }
 }
 
 .navbar-button-active {
   color: #212121!important;
-
-  background-color: red;
-  border-radius: 3px;
 }

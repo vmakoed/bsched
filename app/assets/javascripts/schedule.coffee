@@ -6,23 +6,53 @@ $ ->
   remove_empty_columns($('#table-lessons'), get_number_of_service_headers('html'))
   for table in $('.table-lessons-pdf')
     remove_empty_columns($(table), get_number_of_service_headers('pdf'))
-
   $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
   setup_type_button type for type in get_lesson_types()
+  hide_filters_if_sm()
   setup_filters_button()
   setup_checkbox_actions()
   scroll_to_current_week()
 
+hide_filters_if_sm = ->
+  if $(window).width() < get_sm_width()
+    disable_filters_panel()
+  else
+    pre_toggle_filters_button()
+
+disable_filters_panel = () ->
+  hide_filters_panel()
+  dim_navbar_button($('#filters-button'))
+
+enable_filters_panel = () ->
+  raise_navbar_button($('#filters-button'))
+  show_filters_panel()
+
+get_sm_width = () ->
+  992
+
 setup_filters_button = () ->
   $('#filters-button').click ->
-    if $('#filters-button').hasClass('active')
-      hide_filters_panel()
-      $('#filters-button').removeClass('navbar-button-active')
+    if $('#filters-button').hasClass('navbar-button-active')
+      disable_filters_panel()
     else
-      show_filters_panel()
-      $('#filters-button').addClass('navbar-button-active')
+      enable_filters_panel()
     $('#filters-button').blur()
     $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
+
+pre_toggle_filters_button = () ->
+  $('#filters-button').addClass('active')
+  $('#filters-button').attr('aria-pressed', true)
+  raise_navbar_button($('#filters-button'))
+
+dim_navbar_button = (button) ->
+  $(button).removeClass('navbar-button-active')
+  $(button).addClass('btn-link')
+  $(button).removeClass('btn-default')
+
+raise_navbar_button = (button) ->
+  $(button).addClass('navbar-button-active')
+  $(button).removeClass('btn-link')
+  $(button).addClass('btn-default')
 
 hide_filters_panel = () ->
   $('#filters-sidebar-wrapper').removeClass('col-md-2 col-sm-12')
@@ -80,6 +110,7 @@ alter_lessons = (info, is_to_enable) ->
   if (is_to_enable)
     $(lesson).removeClass("lesson-container-hidden") for lesson in lessons
   else
+    $(lesson).addClass("lesson-container-hidden") for lesson in lessons
     $(lesson).addClass("lesson-container-hidden") for lesson in lessons
 
 collect_lessons_with_info = (info) ->
