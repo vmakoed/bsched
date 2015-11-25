@@ -3,15 +3,23 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  remove_empty_columns($('#table-lessons'), get_number_of_service_headers('html'))
-  for table in $('.table-lessons-pdf')
-    remove_empty_columns($(table), get_number_of_service_headers('pdf'))
-  $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
-  setup_type_button type for type in get_lesson_types()
+  remove_empty_columns_in_html()
+  remove_empty_columns_in_pdf()
+  apply_sticky_table_headers()
   hide_filters_if_sm()
   setup_filters_button()
   setup_checkbox_actions()
   scroll_to_current_week()
+
+remove_empty_columns_in_html = ->
+  remove_empty_columns($('#table-lessons'), get_number_of_service_headers('html'))
+
+remove_empty_columns_in_pdf = ->
+  for table in $('.table-lessons-pdf')
+    remove_empty_columns($(table), get_number_of_service_headers('pdf'))
+
+apply_sticky_table_headers = ->
+  $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
 
 hide_filters_if_sm = ->
   if $(window).width() < get_sm_width()
@@ -19,27 +27,27 @@ hide_filters_if_sm = ->
   else
     pre_toggle_filters_button()
 
-disable_filters_panel = () ->
+disable_filters_panel = ->
   hide_filters_panel()
   dim_navbar_button($('#filters-button'))
 
-enable_filters_panel = () ->
+enable_filters_panel = ->
   raise_navbar_button($('#filters-button'))
   show_filters_panel()
 
-get_sm_width = () ->
+get_sm_width = ->
   992
 
-setup_filters_button = () ->
+setup_filters_button = ->
   $('#filters-button').click ->
     if $('#filters-button').hasClass('navbar-button-active')
       disable_filters_panel()
     else
       enable_filters_panel()
     $('#filters-button').blur()
-    $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
+    apply_sticky_table_headers()
 
-pre_toggle_filters_button = () ->
+pre_toggle_filters_button = ->
   $('#filters-button').addClass('active')
   $('#filters-button').attr('aria-pressed', true)
   raise_navbar_button($('#filters-button'))
@@ -54,14 +62,14 @@ raise_navbar_button = (button) ->
   $(button).removeClass('btn-link')
   $(button).addClass('btn-default')
 
-hide_filters_panel = () ->
+hide_filters_panel = ->
   $('#filters-sidebar-wrapper').removeClass('col-md-2 col-sm-12')
   $('#filters-sidebar-wrapper').addClass('col-md-0 hidden-sm')
   $('#filters-sidebar-wrapper').hide()
   $('#schedule-table-wrapper').removeClass('col-md-10 hidden-sm')
   $('#schedule-table-wrapper').addClass('col-md-12 col-sm-12')
 
-show_filters_panel = () ->
+show_filters_panel = ->
   $('#schedule-table-wrapper').removeClass('col-md-12 col-sm-12')
   $('#schedule-table-wrapper').addClass('col-md-10 hidden-sm')
   $('#filters-sidebar-wrapper').removeClass('col-md-0 hidden-sm')
@@ -95,17 +103,17 @@ reindex_lessons = ->
   disable_unchecked_lessons()
 
 enable_all_lessons = ->
-  alter_lessons($(checkbox).val(), true) for checkbox in $('input.info-checkbox:checkbox')
-  toggle_lessons_type_on($(checkbox).val()) for checkbox in $("input.lesson-type-checkbox:checkbox")
+  alter_lessons_with_info($(checkbox).val(), true) for checkbox in $('input.info-checkbox:checkbox')
+  show_lessons_of_type($(checkbox).val()) for checkbox in $("input.lesson-type-checkbox:checkbox")
 
 disable_unchecked_lessons = ->
   for info_checkbox in $('input.info-checkbox:checkbox')
-    alter_lessons($(info_checkbox).val(), false) if ($(info_checkbox).prop('checked') == false)
+    alter_lessons_with_info($(info_checkbox).val(), false) if ($(info_checkbox).prop('checked') == false)
 
   for lesson_type_checkbox in $("input.lesson-type-checkbox:checkbox")
-    toggle_lessons_type_off($(lesson_type_checkbox).val()) if ($(lesson_type_checkbox).prop('checked') == false)
+    hide_lessons_of_type($(lesson_type_checkbox).val()) if ($(lesson_type_checkbox).prop('checked') == false)
 
-alter_lessons = (info, is_to_enable) ->
+alter_lessons_with_info = (info, is_to_enable) ->
   lessons = collect_lessons_with_info(info)
   if (is_to_enable)
     $(lesson).removeClass("lesson-container-hidden") for lesson in lessons
@@ -130,13 +138,7 @@ get_number_of_service_headers = (format) ->
     number_of_week_headers = 1
   else
     number_of_week_headers = 4
-
   number_of_week_headers + number_of_time_boundaries_headers
-
-setup_type_button = (type) ->
-  $("##{type}s-button").attr("enabled", "true")
-  $("##{type}s-button").click ->
-    toggle_lessons_type "#{type}"
 
 remove_empty_columns = (table, num_of_service_headers) ->
   for table_header, index in $(table).find('th')
@@ -145,45 +147,29 @@ remove_empty_columns = (table, num_of_service_headers) ->
       $(table_header).hide()
       $(column_cells).hide()
 
-is_column_empty = (table, column_cells, num_of_service_headers) ->
-  count_empty_cells(column_cells) == ($(table).find('tr').length - num_of_service_headers)
-
 count_empty_cells = (cells) ->
   remove = 0
   for cell in cells
     remove++ if ($(cell).html() == '')
   remove
 
+is_column_empty = (table, column_cells, num_of_service_headers) ->
+  count_empty_cells(column_cells) == ($(table).find('tr').length - num_of_service_headers)
+
+setup_type_button = (type) ->
+  $("##{type}s-button").attr("enabled", "true")
+  $("##{type}s-button").click ->
+    toggle_lessons_type "#{type}"
+
 toggle_lessons_type = (type) ->
   if $("##{type}s-button").prop("enabled") == true
-    toggle_lessons_type_off(type)
+    hide_lessons_of_type(type)
   else
-    toggle_lessons_type_on(type)
+    show_lessons_of_type(type)
 
-toggle_lessons_type_on = (type) ->
-  show_lessons(type)
-  enable_type_button(type)
-
-toggle_lessons_type_off = (type) ->
-  hide_lessons(type)
-  disable_type_button(type)
-
-hide_lessons = (type) ->
+hide_lessons_of_type = (type) ->
   $("#table-lessons").addClass("fixed-table")
   $(lesson_container).addClass("lesson-container-hidden") for lesson_container in $(".lesson-container-#{type}")
 
-show_lessons = (type) ->
+show_lessons_of_type = (type) ->
   $(lesson_container).removeClass("lesson-container-hidden") for lesson_container in $(".lesson-container-#{type}")
-
-disable_type_button = (type) ->
-  $("##{type}s-button").attr("enabled", "false")
-  $("##{type}s-button").removeClass("type-button")
-  $("##{type}s-button").removeClass("#{type}s-button")
-  $("##{type}s-button").addClass("btn-default")
-
-
-enable_type_button = (type) ->
-  $("##{type}s-button").attr("enabled", "true")
-  $("##{type}s-button").removeClass("btn-default")
-  $("##{type}s-button").addClass("type-button")
-  $("##{type}s-button").addClass("#{type}s-button")
