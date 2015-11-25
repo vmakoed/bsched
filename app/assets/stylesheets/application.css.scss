@@ -27,3 +27,8 @@ body {
 a, a:hover, a:focus, a:active {
   color: inherit;
 }
+
+*:focus {
+  outline: none!important;
+  box-shadow: none!important;
+}

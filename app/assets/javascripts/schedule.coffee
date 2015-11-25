@@ -9,8 +9,34 @@ $ ->
 
   $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
   setup_type_button type for type in get_lesson_types()
+  setup_filters_button()
   setup_checkbox_actions()
   scroll_to_current_week()
+
+setup_filters_button = () ->
+  $('#filters-button').click ->
+    if $('#filters-button').hasClass('active')
+      hide_filters_panel()
+      $('#filters-button').removeClass('navbar-button-active')
+    else
+      show_filters_panel()
+      $('#filters-button').addClass('navbar-button-active')
+    $('#filters-button').blur()
+    $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
+
+hide_filters_panel = () ->
+  $('#filters-sidebar-wrapper').removeClass('col-md-2')
+  $('#filters-sidebar-wrapper').addClass('col-md-0')
+  $('#filters-sidebar-wrapper').hide()
+  $('#schedule-table-wrapper').removeClass('col-md-10')
+  $('#schedule-table-wrapper').addClass('col-md-12')
+
+show_filters_panel = () ->
+  $('#schedule-table-wrapper').removeClass('col-md-12')
+  $('#schedule-table-wrapper').addClass('col-md-10')
+  $('#filters-sidebar-wrapper').removeClass('col-md-0')
+  $('#filters-sidebar-wrapper').addClass('col-md-2')
+  $('#filters-sidebar-wrapper').show()
 
 setup_checkbox_actions = ->
   $('input.all-info-checkbox:checkbox').change ->
