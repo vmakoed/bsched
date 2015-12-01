@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         <% week_numbers.each do |week_number| %>
-          <tr class=<%= "#{tr_class_for_week(week_number, current_week)}" %>>
+          <tr <%= "#{tr_class_for_week(week_number, current_week)}" %>>
             <td colspan="100%">
               <h5 class="weekday-label">
                 Неделя <%= week_number %>

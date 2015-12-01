@@ -25,9 +25,9 @@ module ScheduleHelper
 
   def tr_class_for_week(week_number, current_week)
     if week_number == current_week
-      'tr-current-week tr-current-week-header'
+      'class = tr-current-week'
     else
-      'weekday-tr'
+      'class = weekday-tr'
     end
   end
 

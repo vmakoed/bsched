@@ -4,13 +4,18 @@
   right: 0;
   padding-bottom: 70px;
   padding-right: 0;
-  border-left: 1px solid #E0E0E0;
+  border-left: 1px solid #e0e0e0;
+  background-color: #fafafa;
 }
 
 #filters-sidebar {
   position: relative;
   height: 100%;
   overflow-y: auto;
+
+  .list-group-item {
+    background-color: #fafafa;
+  }
 }
 
 #filters-sidebar .list-group-item {

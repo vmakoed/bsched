@@ -104,7 +104,7 @@ reindex_lessons = ->
 
 enable_all_lessons = ->
   alter_lessons_with_info($(checkbox).val(), true) for checkbox in $('input.info-checkbox:checkbox')
-  show_lessons_of_type($(checkbox).val()) for checkbox in $("input.lesson-type-checkbox:checkbox")
+  show_lessons_of_type($(checkbox).val()) for checkbox in $('input.lesson-type-checkbox:checkbox')
 
 disable_unchecked_lessons = ->
   for info_checkbox in $('input.info-checkbox:checkbox')
@@ -116,21 +116,21 @@ disable_unchecked_lessons = ->
 alter_lessons_with_info = (info, is_to_enable) ->
   lessons = collect_lessons_with_info(info)
   if (is_to_enable)
-    $(lesson).removeClass("lesson-container-hidden") for lesson in lessons
+    $(lesson).removeClass('lesson-container-hidden') for lesson in lessons
   else
-    $(lesson).addClass("lesson-container-hidden") for lesson in lessons
-    $(lesson).addClass("lesson-container-hidden") for lesson in lessons
+    $(lesson).addClass('lesson-container-hidden') for lesson in lessons
+    $(lesson).addClass('lesson-container-hidden') for lesson in lessons
 
 collect_lessons_with_info = (info) ->
   $(".lesson-container:contains(#{info})")
 
 scroll_to_current_week = ->
-  $('html, body').animate {
-    scrollTop: $(".tr-current-week").offset().top
+  $('#schedule-table').animate {
+    scrollTop: $('.tr-current-week').offset().top - $('.navbar').height()
   }, 1000
 
 get_lesson_types = ->
-  ["lecture", "seminar", "lab"]
+  ['lecture', 'seminar', 'lab']
 
 get_number_of_service_headers = (format) ->
   number_of_time_boundaries_headers = 1
@@ -157,19 +157,19 @@ is_column_empty = (table, column_cells, num_of_service_headers) ->
   count_empty_cells(column_cells) == ($(table).find('tr').length - num_of_service_headers)
 
 setup_type_button = (type) ->
-  $("##{type}s-button").attr("enabled", "true")
+  $("##{type}s-button").attr('enabled', 'true')
   $("##{type}s-button").click ->
     toggle_lessons_type "#{type}"
 
 toggle_lessons_type = (type) ->
-  if $("##{type}s-button").prop("enabled") == true
+  if $("##{type}s-button").prop('enabled') == true
     hide_lessons_of_type(type)
   else
     show_lessons_of_type(type)
 
 hide_lessons_of_type = (type) ->
-  $("#table-lessons").addClass("fixed-table")
-  $(lesson_container).addClass("lesson-container-hidden") for lesson_container in $(".lesson-container-#{type}")
+  $('#table-lessons').addClass('fixed-table')
+  $(lesson_container).addClass('lesson-container-hidden') for lesson_container in $(".lesson-container-#{type}")
 
 show_lessons_of_type = (type) ->
   $(lesson_container).removeClass("lesson-container-hidden") for lesson_container in $(".lesson-container-#{type}")
