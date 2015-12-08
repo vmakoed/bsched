@@ -1,13 +1,25 @@
 <% title "Группа #{params[:group_number]}, подгруппа #{params[:subgroup_number]}" %>
-
 <%= render partial: 'header' %>
 <div class="container-fluid" id="content-wrapper">
   <div class="row">
     <div class="col-md-10 col-sm-12" id="schedule-table-wrapper">
-      <%= render partial: 'schedule_table', locals: { schedule_hash: @schedule_hash, current_week: @current_week, current_day: @current_day, current_time: @current_time } %>
+      <%= render partial: 'schedule_table',
+                 locals: {
+                     schedule: @schedule_info[:schedule],
+                     current_week: @current_info[:current_week],
+                     current_day: @current_info[:current_day],
+                     current_time: @current_info[:current_time]
+                 }
+      %>
     </div>
     <div class="col-md-2 hidden-sm" id="filters-sidebar-wrapper">
-      <%= render partial: 'filters_sidebar', locals: {subjects_list: @subjects_list, employees_list: @employees_list, auditories_list: @auditories_list } %>
+      <%= render partial: 'filters_sidebar',
+                 locals: {
+                     subjects: @schedule_info[:subjects],
+                     employees: @schedule_info[:employees],
+                     auditories: @schedule_info[:auditories]
+                 }
+      %>
     </div>
   </div>
 </div>

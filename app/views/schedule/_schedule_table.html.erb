@@ -35,10 +35,10 @@
               </td>
               <% lesson_time_boundaries.each do |lesson_time_boundary| %>
                 <td class="lesson-td"><%=
-                  if does_lesson_exist?(schedule_hash, week_number, weekday, lesson_time_boundary)
+                  if does_lesson_exist?(schedule, week_number, weekday, lesson_time_boundary)
                     render partial: 'lesson', locals:
                     {
-                      lesson: schedule_hash[week_number][weekday][lesson_time_boundary],
+                      lesson: schedule[week_number][weekday][lesson_time_boundary],
                       current: is_current_lesson?(current_time, lesson_time_boundary, week_number, current_week, weekday, current_day)
                     }
                   end

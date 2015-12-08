@@ -28,11 +28,12 @@
                 </td>
                 <% lesson_time_boundaries.each do |lesson_time_boundary| %>
                   <td class="lesson-td"><%=
-                    if does_lesson_exist?(@schedule_hash, week_number, weekday, lesson_time_boundary)
-                      render partial: 'schedule/pdf/lesson', locals:
-                      {
-                        lesson: @schedule_hash[week_number][weekday][lesson_time_boundary],
-                      }
+                    if does_lesson_exist?(@schedule_info[:schedule], week_number, weekday, lesson_time_boundary)
+                      render partial: 'schedule/pdf/lesson',
+                             locals: {
+                               lesson: @schedule_info[:schedule][week_number][weekday][lesson_time_boundary],
+                               current: false
+                             }
                     end
                   %></td>
                 <% end %>

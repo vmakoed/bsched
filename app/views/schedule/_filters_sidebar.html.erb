@@ -36,7 +36,7 @@
           <div class="checkbox">
             <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все предметы</b></label>
           </div>
-          <% subjects_list.map do |subject| %>
+          <% subjects.map do |subject| %>
             <div class="checkbox">
               <label><input type="checkbox" class="info-checkbox" value="<%= subject %>" checked><%= subject %></label>
             </div>
@@ -53,7 +53,7 @@
           <div class="checkbox">
             <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все преподаватели</b></label>
           </div>
-          <% employees_list.map do |employee| %>
+          <% employees.map do |employee| %>
             <div class="checkbox">
               <label>
                 <input type="checkbox" class="info-checkbox" value="<%= employee %>" checked><%= employee %>
@@ -72,7 +72,7 @@
           <div class="checkbox">
             <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все аудитории</b></label>
           </div>
-          <% auditories_list.map do |auditory| %>
+          <% auditories.map do |auditory| %>
             <div class="checkbox">
               <label>
                 <input type="checkbox" class="info-checkbox" value="<%= auditory %>" checked>
