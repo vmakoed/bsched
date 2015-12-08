@@ -10,7 +10,8 @@
           <div id="github-floating-button"></div>
         <% end %>
         <%= render 'layouts/messages' %>
-        <%= render 'form' %>
+        <%= render partial: 'form',
+                   locals: { default_group_number: @group_number, default_subgroup_number: @subgroup_number } %>
       </div>
     </div>
   </div>

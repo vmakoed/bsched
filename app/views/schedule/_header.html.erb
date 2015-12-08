@@ -20,7 +20,12 @@
         </button>
       </div>
       <div class="navbar-form navbar-right">
-        <%= render 'schedule/header/group_switch' %>
+        <%= render partial: 'form', locals:
+          {
+            default_group_number: params[:group_number],
+            default_subgroup_number: params[:subgroup_number]
+          }
+        %>
       </div>
     </div>
   </div>

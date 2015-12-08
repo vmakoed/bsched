@@ -7,10 +7,25 @@ class ScheduleController < ApplicationController
   rescue_from OpenURI::HTTPError, with: :invalid_group_number
 
   def index
+    @group_number, @subgroup_number = nil, 1
+    load_cookies_if_present
+  end
+
+  def load_cookies_if_present
+    @group_number = cookies[:group_number] if cookies[:group_number].present?
+    @subgroup_number = cookies[:subgroup_number] if cookies[:subgroup_number].present?
+  end
+
+  def delete_cookies
+    cookies.delete(:group_number)
+    cookies.delete(:subgroup_number)
   end
 
   def get_group
-    redirect_to :action => 'generate', :group_number => params[:group_number], :subgroup_number => params[:subgroup_number]
+    cookies[:group_number], cookies[:subgroup_number] = params[:group_number], params[:subgroup_number]
+    redirect_to :action => 'generate',
+                :group_number => params[:group_number],
+                :subgroup_number => params[:subgroup_number]
   end
 
   def generate
@@ -202,6 +217,7 @@ class ScheduleController < ApplicationController
     end
 
     def invalid_group_number
+      delete_cookies
       logger.error 'Attempt to access invalid group_name #{params[:group_number]}'
       flash[:danger] = 'Неправильный номер группы.'
       redirect_to root_path
