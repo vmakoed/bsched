@@ -5,11 +5,18 @@
 $ ->
   remove_empty_columns_in_html()
   remove_empty_columns_in_pdf()
-  apply_sticky_table_headers()
-  hide_filters_if_sm()
   setup_filters_button()
+  setup_resize_actions()
   setup_checkbox_actions()
+  hide_filters_if_sm()
+  show_filters_if_larger_than_sm
+  apply_sticky_table_headers()
   scroll_to_current_week()
+
+
+setup_resize_actions = ->
+  $(window).resize ->
+    apply_sticky_table_headers()
 
 remove_empty_columns_in_html = ->
   remove_empty_columns($('#table-lessons'), get_number_of_service_headers('html'))
@@ -21,11 +28,15 @@ remove_empty_columns_in_pdf = ->
 apply_sticky_table_headers = ->
   $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
 
+is_screen_small = ->
+  $(window).width() < get_sm_width()
+
 hide_filters_if_sm = ->
-  if $(window).width() < get_sm_width()
-    disable_filters_panel()
-  else
-    pre_toggle_filters_button()
+  disable_filters_panel() if is_screen_small()
+
+show_filters_if_larger_than_sm = ->
+  pre_toggle_filters_button() unless is_screen_small()
+
 
 disable_filters_panel = ->
   hide_filters_panel()
@@ -63,17 +74,17 @@ raise_navbar_button = (button) ->
   $(button).addClass('btn-default')
 
 hide_filters_panel = ->
-  $('#filters-sidebar-wrapper').removeClass('col-md-2 col-sm-12')
-  $('#filters-sidebar-wrapper').addClass('col-md-0 hidden-sm')
+  $('#filters-sidebar-wrapper').removeClass('col-lg-2 col-md-3 col-sm-12 col-xs-12')
+  $('#filters-sidebar-wrapper').addClass('col-lg-0 col-md-0 hidden-sm hidden-xs')
   $('#filters-sidebar-wrapper').hide()
-  $('#schedule-table-wrapper').removeClass('col-md-10 hidden-sm')
-  $('#schedule-table-wrapper').addClass('col-md-12 col-sm-12')
+  $('#schedule-table-wrapper').removeClass('col-lg-10 col-md-9 hidden-sm hidden-xs')
+  $('#schedule-table-wrapper').addClass('col-lg-12 col-md-12 col-sm-12 col-xs-12')
 
 show_filters_panel = ->
-  $('#schedule-table-wrapper').removeClass('col-md-12 col-sm-12')
-  $('#schedule-table-wrapper').addClass('col-md-10 hidden-sm')
-  $('#filters-sidebar-wrapper').removeClass('col-md-0 hidden-sm')
-  $('#filters-sidebar-wrapper').addClass('col-md-2 col-sm-12')
+  $('#schedule-table-wrapper').removeClass('col-lg-12 col-md-12 col-sm-12 col-xs-12')
+  $('#schedule-table-wrapper').addClass('col-lg-10 col-md-9 hidden-sm hidden-xs')
+  $('#filters-sidebar-wrapper').removeClass('col-lg-0 col-md-0 hidden-sm hidden-xs')
+  $('#filters-sidebar-wrapper').addClass('col-lg-2 col-md-3 col-sm-12 col-xs-12')
   $('#filters-sidebar-wrapper').show()
 
 setup_checkbox_actions = ->

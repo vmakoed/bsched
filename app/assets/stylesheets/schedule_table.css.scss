@@ -13,9 +13,26 @@
   height: 100%;
   overflow-y: auto;
 
+  .lesson-time {
+    font-size: 1vw;
+    text-align: center;
+  }
+
+  .week {
+    font-size: 1vw;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .weekday {
+    font-size: 1.2vw;
+    line-height: 125%;;
+    font-weight: bold;
+  }
+
   .lesson-td {
     width: 1000px;
-    height: 125px;
+    height: 5vw;
     padding: 2px !important;
   }
 }
@@ -33,23 +50,19 @@
     border: none !important;
   }
 
-  .weekday-td h4 {
-    padding-right: 25px;
+  .weekday-td {
+    padding-left: 15px;
+    padding-right: 15px;
+    vertical-align: middle;
   }
 
   .table-header {
     background-color: #fafafa;
 
-    h5 {
-      font-weight: bold;
-      text-align: center;
-      color: #666;
-    }
-
     .th-current-lesson {
       background-color: #eee;
 
-      h5 {
+      .lesson-time {
         color: #212121;
       }
     }
@@ -65,17 +78,13 @@
     background-color: #f5f5f5;
   }
 
-  .weekday-td {
-    padding-left: 30px;
-  }
-
   .weekday-label {
     font-weight: bold;
     text-align: center;
   }
 
   .tr-current-week-header {
-    h5 {
+    .week {
       color: #4e4e4e;
     }
   }
@@ -91,7 +100,7 @@
                 0 3px 1px -2px rgba(0, 0, 0, 0.2),
                 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 
-    td:first-child h4 {
+    .weekday {
       font-weight: bold;
     }
   }
