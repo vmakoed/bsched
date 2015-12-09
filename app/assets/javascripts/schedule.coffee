@@ -126,7 +126,7 @@ collect_lessons_with_info = (info) ->
 
 scroll_to_current_week = ->
   $('#schedule-table').animate {
-    scrollTop: $('.tr-current-week').offset().top - $('.navbar').height()
+    scrollTop: $('.tr-current-week').offset().top - $('.navbar').height() - $('.weekday-tr').height()
   }, 1000
 
 get_lesson_types = ->
