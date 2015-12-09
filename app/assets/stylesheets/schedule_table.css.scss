@@ -7,45 +7,8 @@
   padding-bottom: 70px;
 }
 
-
-#schedule-table {
-  position: relative;
-  height: 100%;
-  overflow-y: auto;
-
-  .lesson-time {
-    font-size: 1vw;
-    text-align: center;
-  }
-
-  .week {
-    font-size: 1vw;
-    text-align: center;
-    font-weight: bold;
-  }
-
-  .weekday {
-    font-size: 1.2vw;
-    line-height: 125%;
-  }
-
-  .lesson-td {
-    width: 1000px;
-    height: 5vw;
-    padding: 2px !important;
-  }
-}
-
-#schedule-table-pdf {
-  .lesson-td {
-    width: 1000px;
-    height: 100px;
-    padding: 2px !important;
-  }
-}
-
 #schedule-table, #schedule-table-pdf {
-    .table th, .table td {
+  .table th, .table td {
     border: none !important;
   }
 
@@ -69,8 +32,8 @@
 
   thead {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-                0 3px 1px -2px rgba(0, 0, 0, 0.2),
-                0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   }
 
   .weekday-tr td {
@@ -96,11 +59,69 @@
     background-color: #f5f5f5;
 
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-                0 3px 1px -2px rgba(0, 0, 0, 0.2),
-                0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 
     .weekday {
       font-weight: bold;
     }
+  }
+
+  .lesson-td {
+    width: 1000px;
+    padding: 2px !important;
+  }
+
+  .lesson-time {
+    text-align: center;
+  }
+
+  .week {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .weekday {
+    line-height: 125%;
+  }
+}
+
+#schedule-table {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+
+  .lesson-td {
+    height: 5vw;
+  }
+
+  .lesson-time {
+    font-size: 1vw;
+  }
+
+  .week {
+    font-size: 1vw;
+  }
+
+  .weekday {
+    font-size: 1.2vw;
+  }
+}
+
+#schedule-table-pdf {
+  .lesson-td {
+    height: 100px;
+  }
+
+  .lesson-time {
+    font-size: 18px;
+  }
+
+  .week {
+    font-size: 18px;
+  }
+
+  .weekday {
+    font-size: 22px;
   }
 }

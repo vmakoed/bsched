@@ -37,7 +37,6 @@ hide_filters_if_sm = ->
 show_filters_if_larger_than_sm = ->
   pre_toggle_filters_button() unless is_screen_small()
 
-
 disable_filters_panel = ->
   hide_filters_panel()
   dim_navbar_button($('#filters-button'))
@@ -62,6 +61,7 @@ pre_toggle_filters_button = ->
   $('#filters-button').addClass('active')
   $('#filters-button').attr('aria-pressed', true)
   raise_navbar_button($('#filters-button'))
+  show_filters_panel()
 
 dim_navbar_button = (button) ->
   $(button).removeClass('navbar-button-active')

@@ -6,25 +6,25 @@
           <tbody>
             <tr>
               <td colspan="100%">
-                <h5 class="weekday-label">Неделя <%= week_number %></h5>
+                <div class="week">Неделя <%= week_number %></div>
               </td>
             </tr>
             <tr class="table-header">
               <th></th>
               <% lesson_time_boundaries.each do |lesson_time_boundary| %>
                 <th>
-                  <h5>
+                  <div class="lesson-time">
                     <%= lesson_time_boundary %>
-                  </h5>
+                  </div>
                 </th>
               <% end %>
             </tr>
             <% weekdays.each do |weekday| %>
               <tr>
                 <td class="weekday-td">
-                  <h4>
+                  <div class="weekday">
                     <%= weekday %>
-                  </h4>
+                  </div>
                 </td>
                 <% lesson_time_boundaries.each do |lesson_time_boundary| %>
                   <td class="lesson-td"><%=
