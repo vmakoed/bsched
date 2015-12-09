@@ -9,7 +9,7 @@ $ ->
   setup_resize_actions()
   setup_checkbox_actions()
   hide_filters_if_sm()
-  show_filters_if_larger_than_sm
+  show_filters_if_larger_than_sm()
   apply_sticky_table_headers()
   scroll_to_current_week()
 
