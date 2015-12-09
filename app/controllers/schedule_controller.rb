@@ -13,12 +13,12 @@ class ScheduleController < ApplicationController
 
   def get_group
     save_cookies(params)
-    redirect_to action: 'generate',
+    redirect_to action: 'show',
                 group_number: params[:group_number],
                 subgroup_number: params[:subgroup_number]
   end
 
-  def generate
+  def show
     schedule_parser_service = ScheduleParserService.new(params, form_url(params[:group_number]))
     @schedule_info = schedule_parser_service.schedule_info
     @current_info = get_current_info
