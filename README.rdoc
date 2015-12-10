@@ -1,18 +1,24 @@
 = BSUIR Schedule Complete
 
-The most relevant deployed version: http://bsuir-schedule-complete.herokuapp.com
+The most relevant deployed version: http://bsched.herokuapp.com
 
 == DESCRIPTION:
 
-A simple BSUIR schedule parser that provides a transparent and eye-pleasing display.
+A BSUIR schedule parser that provides a transparent and eye-pleasing display.
 
 == FEATURES:
 
-Generates group schedule for specified group and subgroup using BSUIR Schedule API (http://www.bsuir.by/schedule/API.xhtml). Provides PDF file for download.
+* Table (desktop) or list (mobile) view of group schedule for specified group and subgroup
+* Responsive design
+* Lesson filter by lesson type, subject, employee and auditory
+* Schedule is available for download in multi-page A4 PDF
 
 == CREDITS:
 
+* Using BSUIR Schedule API: http://www.bsuir.by/schedule/API.xhtml
 * Using Nogokiri for XML parsing: https://github.com/sparklemotion/nokogiri
 * Using WickedPDF for PDF generation: https://github.com/mileszs/wicked_pdf
 * Using WickedPDF binary for Heroku: https://github.com/rposborne/wkhtmltopdf-heroku
 * Using Bootswatch Paper Theme: https://github.com/maxim/bootswatch-rails
+* Using StickyTableHeaders: https://github.com/jmosbech/StickyTableHeaders
+* Using stacktable.js: https://github.com/johnpolacek/stacktable.js
