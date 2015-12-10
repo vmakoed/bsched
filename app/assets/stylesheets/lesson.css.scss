@@ -18,36 +18,32 @@
     transform: translate(-50%, -50%);
   }
 
-  .lesson-container-hidden {
-    opacity: 0;
-
-    h4, h6 {
-      opacity: 0;
-    }
-  }
-
   .lesson-container-lecture {
     background-color: #1ea462;
   }
 
   .lesson-container-seminar {
     background-color: #4486f1;
-  }  #schedule-table-pdf {
-    .subject {
-      line-height: 125%;
-      font-size: 22px;
-    }
-
-    .employee, .auditory {
-      font-size: 18px;
-      font-weight: bold;
-      opacity: 0.7;
-      line-height: 150%;
-    }
   }
 
   .lesson-container-lab {
     background-color: #dc4a3d;
+  }
+
+  .subject {
+    line-height: 125%;
+  }
+
+  .employee, .auditory {
+    font-weight: bold;
+    opacity: 0.7;
+    line-height: 150%;
+  }
+}
+
+#schedule-table {
+  .lesson-container-hidden {
+    opacity: 0;
   }
 
   .badge-current {
@@ -55,7 +51,6 @@
     top: 5px;
     right: 5px;
     background-color: #fff !important;
-    font-size: 0.8vw !important;
     font-weight: bold !important;
   }
 
@@ -70,32 +65,50 @@
   .badge-current-lab {
     color: #f44336 !important;
   }
-}
 
-#schedule-table {
-  .subject {
-    line-height: 125%;
-    font-size: 1.2vw;
+  .large-only {
+    .lesson-container {
+      height: 100%;
+    }
+
+    .badge-current {
+      font-size: 0.8vw !important;
+    }
+
+    .subject {
+      font-size: 1.2vw;
+    }
+
+    .employee, .auditory {
+      font-size: 0.8vw;
+    }
   }
 
-  .employee, .auditory {
-    font-size: 0.8vw;
-    font-weight: bold;
-    opacity: 0.7;
-    line-height: 150%;
+  .small-only {
+    .lesson-container {
+      height: 144px;
+    }
+
+    .badge-current {
+      font-size: 28px !important;
+    }
+
+    .subject {
+      font-size: 32px;
+    }
+
+    .employee, .auditory {
+      font-size: 28px;
+    }
   }
 }
 
 #schedule-table-pdf {
   .subject {
-    line-height: 125%;
     font-size: 20px;
   }
 
   .employee, .auditory {
     font-size: 16px;
-    font-weight: bold;
-    opacity: 0.7;
-    line-height: 150%;
   }
 }

@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery.stickytableheaders
+//= require stacktable
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .

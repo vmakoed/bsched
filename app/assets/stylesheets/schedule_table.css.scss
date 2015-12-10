@@ -91,21 +91,52 @@
   height: 100%;
   overflow-y: auto;
 
-  .lesson-td {
-    height: 5vw;
+  .large-only {
+    .lesson-td {
+      height: 5vw;
+    }
+
+    .lesson-time {
+      font-size: 1vw;
+    }
+
+    .week {
+      font-size: 1vw;
+    }
+
+    .weekday {
+      font-size: 1.2vw;
+    }
   }
 
-  .lesson-time {
-    font-size: 1vw;
+  .small-only {
+    td:first-child {
+      vertical-align: middle;
+    }
+
+    .lesson-time {
+      font-size: 24px;
+      line-height: 125%;
+      font-weight: bold;
+    }
+
+    .week {
+      font-size: 32px;
+    }
+
+    .weekday {
+      text-align: center;
+      font-size: 32px;
+      font-weight: normal;
+    }
+
+    .tr-current-day {
+      .weekday {
+        font-weight: bold;
+      }
+    }
   }
 
-  .week {
-    font-size: 1vw;
-  }
-
-  .weekday {
-    font-size: 1.2vw;
-  }
 }
 
 #schedule-table-pdf {
