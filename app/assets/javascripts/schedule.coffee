@@ -157,8 +157,13 @@ collect_lessons_with_info = (info) ->
 
 scroll_to_current_week = ->
   $('#schedule-table').animate {
-    scrollTop: $('#schedule-table').find('.tr-current-week:visible').offset().top - $('.navbar').height()
+    scrollTop: count_scroll_distance()
   }, 1000
+
+count_scroll_distance = ->
+  scroll_distance = $('#schedule-table').find('.tr-current-week:visible').offset().top - $('.navbar').height()
+  scroll_distance -=  $('.weekday-tr:visible').height() unless is_screen_small()
+  scroll_distance
 
 get_lesson_types = ->
   ['lecture', 'seminar', 'lab']
