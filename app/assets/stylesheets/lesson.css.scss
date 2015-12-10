@@ -1,76 +1,114 @@
-.lesson-container {
-  text-align: center;
-  height: 100%;
-  position: relative;
-  padding: 0;
-  display: block;
-
-  h4, h5 {
+#schedule-table, #schedule-table-pdf {
+  .lesson-container {
+    text-align: center;
+    height: 100%;
+    position: relative;
+    display: block;
     color: #fff;
+    padding: 0;
+  }
+
+  .lesson-wrapper {
+    position: absolute;
+    padding: 2px;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .lesson-container-lecture {
+    background-color: #1ea462;
+  }
+
+  .lesson-container-seminar {
+    background-color: #4486f1;
+  }
+
+  .lesson-container-lab {
+    background-color: #dc4a3d;
+  }
+
+  .subject {
+    line-height: 125%;
+  }
+
+  .employee, .auditory {
+    font-weight: bold;
+    opacity: 0.7;
+    line-height: 150%;
   }
 }
 
-.lesson-wrapper {
-  position: absolute;
-  padding: 2px;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.lesson-container-hidden {
-  opacity: 0;
-
-  h4, h6 {
+#schedule-table {
+  .lesson-container-hidden {
     opacity: 0;
   }
-}
 
-.lesson-container-lecture {
-  background-color: #1ea462;
+  .badge-current {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #fff !important;
+    font-weight: bold !important;
+  }
 
-  h6 {
-    font-weight: bold;
-    color: #C8E6C9;
+  .badge-current-lecture {
+    color: #4caf50 !important;
+  }
+
+  .badge-current-seminar {
+    color: #03a9f4 !important;
+  }
+
+  .badge-current-lab {
+    color: #f44336 !important;
+  }
+
+  .large-only {
+    .lesson-container {
+      height: 100%;
+    }
+
+    .badge-current {
+      font-size: 0.8vw !important;
+    }
+
+    .subject {
+      font-size: 1.2vw;
+    }
+
+    .employee, .auditory {
+      font-size: 0.8vw;
+    }
+  }
+
+  .small-only {
+    .lesson-container {
+      height: 144px;
+    }
+
+    .badge-current {
+      font-size: 28px !important;
+    }
+
+    .subject {
+      font-size: 32px;
+    }
+
+    .employee, .auditory {
+      font-size: 28px;
+    }
   }
 }
 
-.lesson-container-seminar {
-  background-color: #4486f1;
-
-  h6 {
-    font-weight: bold;
-    color: #BBDEFB;
+#schedule-table-pdf {
+  .subject {
+    font-size: 20px;
   }
-}
 
-.lesson-container-lab {
-  background-color: #dc4a3d;
-
-  h6 {
-    font-weight: bold;
-    color: #ffcdd2;
+  .employee, .auditory {
+    font-size: 16px;
   }
-}
-
-.badge-current {
-  position:absolute;
-  top: 5px;
-  right: 5px;
-  background-color: #fff !important;
-  font-weight: bold !important;
-}
-
-.badge-current-lecture {
-  color: #4caf50 !important;
-}
-
-.badge-current-seminar {
-  color: #03a9f4 !important;
-}
-
-.badge-current-lab {
-  color: #f44336 !important;
 }

@@ -1,14 +1,14 @@
 <div id="schedule-table">
   <div class="table-responsive">
-    <table class="table table-responsive" id="table-lessons">
+    <table class="table table-responsive">
       <thead>
         <tr class="table-header">
           <th></th>
           <% lesson_time_boundaries.each do |lesson_time_boundary| %>
             <th <%= "#{th_class_for_time_boundary(current_time, lesson_time_boundary)}" %>>
-              <h5>
+              <div class="lesson-time">
                 <%= lesson_time_boundary %>
-              </h5>
+              </div>
             </th>
           <% end %>
         </tr>
@@ -17,21 +17,21 @@
         <% week_numbers.each do |week_number| %>
           <tr <%= "#{tr_class_for_week(week_number, current_week)}" %>>
             <td colspan="100%">
-              <h5 class="weekday-label">
+              <div class="week">
                 Неделя <%= week_number %>
                 <%= ' (текущая)' if week_number == current_week %>
-              </h5>
+              </div>
             </td>
           </tr>
           <% weekdays.each do |weekday| %>
             <tr <%= "#{tr_class_for_day(week_number, current_week, weekday, current_day)}" %>>
               <td class="weekday-td">
-                <h4>
+                <div class="weekday">
                   <%= weekday %>
                   <% if week_number == current_week && weekday == weekdays[current_day - 1] %>
                     <br><%= '(сегодня)' %>
                   <% end %>
-                </h4>
+                </div>
               </td>
               <% lesson_time_boundaries.each do |lesson_time_boundary| %>
                 <td class="lesson-td"><%=

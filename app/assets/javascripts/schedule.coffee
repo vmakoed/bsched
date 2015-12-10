@@ -5,27 +5,57 @@
 $ ->
   remove_empty_columns_in_html()
   remove_empty_columns_in_pdf()
-  apply_sticky_table_headers()
-  hide_filters_if_sm()
   setup_filters_button()
+  setup_resize_actions()
   setup_checkbox_actions()
+  hide_filters_if_sm()
+  show_filters_if_larger_than_sm()
+  create_and_hide_mobile_table()
+  switch_table_versions_if_needed()
+  apply_sticky_table_headers()
   scroll_to_current_week()
 
+create_and_hide_mobile_table = ->
+  $('#schedule-table').find('table').stacktable()
+  $('#schedule-table').find('table.small-only').hide()
+
+switch_table_versions_if_needed = ->
+  if is_screen_small()
+    switch_to_mobile_table() if $('#schedule-table').find('table.small-only').is(':hidden')
+  else
+    switch_to_desktop_table() if $('#schedule-table').find('table.large-only').is(':hidden')
+
+switch_to_mobile_table = ->
+  $('#schedule-table').find('table.large-only').hide()
+  $('#schedule-table').find('table.small-only').show()
+
+switch_to_desktop_table = ->
+  $('#schedule-table').find('table.small-only').hide()
+  $('#schedule-table').find('table.large-only').show()
+
+setup_resize_actions = ->
+  $(window).resize ->
+    apply_sticky_table_headers()
+    switch_table_versions_if_needed()
+
 remove_empty_columns_in_html = ->
-  remove_empty_columns($('#table-lessons'), get_number_of_service_headers('html'))
+  remove_empty_columns($('#schedule-table').find('table'), get_number_of_service_headers('html'))
 
 remove_empty_columns_in_pdf = ->
   for table in $('.table-lessons-pdf')
     remove_empty_columns($(table), get_number_of_service_headers('pdf'))
 
 apply_sticky_table_headers = ->
-  $('#table-lessons').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
+  $('#schedule-table').find('table.large-only').stickyTableHeaders({ scrollableArea: $('#schedule-table')[0] })
+
+is_screen_small = ->
+  $(window).width() < get_sm_width()
 
 hide_filters_if_sm = ->
-  if $(window).width() < get_sm_width()
-    disable_filters_panel()
-  else
-    pre_toggle_filters_button()
+  disable_filters_panel() if is_screen_small()
+
+show_filters_if_larger_than_sm = ->
+  pre_toggle_filters_button() unless is_screen_small()
 
 disable_filters_panel = ->
   hide_filters_panel()
@@ -51,6 +81,7 @@ pre_toggle_filters_button = ->
   $('#filters-button').addClass('active')
   $('#filters-button').attr('aria-pressed', true)
   raise_navbar_button($('#filters-button'))
+  show_filters_panel()
 
 dim_navbar_button = (button) ->
   $(button).removeClass('navbar-button-active')
@@ -63,17 +94,17 @@ raise_navbar_button = (button) ->
   $(button).addClass('btn-default')
 
 hide_filters_panel = ->
-  $('#filters-sidebar-wrapper').removeClass('col-md-2 col-sm-12')
-  $('#filters-sidebar-wrapper').addClass('col-md-0 hidden-sm')
+  $('#filters-sidebar-wrapper').removeClass('col-lg-2 col-md-3 col-sm-12 col-xs-12')
+  $('#filters-sidebar-wrapper').addClass('col-lg-0 col-md-0 hidden-sm hidden-xs')
   $('#filters-sidebar-wrapper').hide()
-  $('#schedule-table-wrapper').removeClass('col-md-10 hidden-sm')
-  $('#schedule-table-wrapper').addClass('col-md-12 col-sm-12')
+  $('#schedule-table-wrapper').removeClass('col-lg-10 col-md-9 hidden-sm hidden-xs')
+  $('#schedule-table-wrapper').addClass('col-lg-12 col-md-12 col-sm-12 col-xs-12')
 
 show_filters_panel = ->
-  $('#schedule-table-wrapper').removeClass('col-md-12 col-sm-12')
-  $('#schedule-table-wrapper').addClass('col-md-10 hidden-sm')
-  $('#filters-sidebar-wrapper').removeClass('col-md-0 hidden-sm')
-  $('#filters-sidebar-wrapper').addClass('col-md-2 col-sm-12')
+  $('#schedule-table-wrapper').removeClass('col-lg-12 col-md-12 col-sm-12 col-xs-12')
+  $('#schedule-table-wrapper').addClass('col-lg-10 col-md-9 hidden-sm hidden-xs')
+  $('#filters-sidebar-wrapper').removeClass('col-lg-0 col-md-0 hidden-sm hidden-xs')
+  $('#filters-sidebar-wrapper').addClass('col-lg-2 col-md-3 col-sm-12 col-xs-12')
   $('#filters-sidebar-wrapper').show()
 
 setup_checkbox_actions = ->
@@ -126,7 +157,7 @@ collect_lessons_with_info = (info) ->
 
 scroll_to_current_week = ->
   $('#schedule-table').animate {
-    scrollTop: $('.tr-current-week').offset().top - $('.navbar').height() - $('.weekday-tr').height()
+    scrollTop: $('#schedule-table').find('.tr-current-week:visible').offset().top - $('.navbar').height()
   }, 1000
 
 get_lesson_types = ->
@@ -168,7 +199,7 @@ toggle_lessons_type = (type) ->
     show_lessons_of_type(type)
 
 hide_lessons_of_type = (type) ->
-  $('#table-lessons').addClass('fixed-table')
+  $('#schedule-table').find('table').addClass('fixed-table')
   $(lesson_container).addClass('lesson-container-hidden') for lesson_container in $(".lesson-container-#{type}")
 
 show_lessons_of_type = (type) ->
