@@ -1,25 +1,30 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-elements"
+              aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <%= link_to root_path, class: 'navbar-brand', id: 'home-button' do %>
         BSUIR Schedule
       <% end  %>
     </div>
-    <div class="collapse navbar-collapse">
-      <div class="nav navbar-nav navbar-right">
-        <button type="button" class="btn btn-link navbar-btn navbar-button">
+    <div class="collapse navbar-collapse" id="nav-elements">
+      <div class="navbar-right">
+        <button type="button" class="btn btn-default navbar-btn navbar-button navbar-button-active"
+                data-toggle="button" id="filters-button" title="Настройки">
+          <span class="glyphicon glyphicon-cog"></span>
+        </button>
+        <button type="button" class="btn btn-link navbar-btn navbar-button" title="Скачать PDF">
           <%= link_to (url_for(format: :pdf)), target: '_blank' do %>
-              <span class="glyphicon glyphicon-download"></span>
+            <span class="glyphicon glyphicon-download"></span>
           <% end  %>
         </button>
       </div>
-      <div class="nav navbar-nav navbar-right">
-        <button type="button" class="btn btn-default navbar-btn navbar-button navbar-button-active"
-                data-toggle="button" id="filters-button">
-          <span class="glyphicon glyphicon-cog"></span>
-        </button>
-      </div>
-      <div class="navbar-form navbar-right">
+      <div class="navbar-form" id="nav-form">
         <%= render partial: 'form', locals:
           {
             default_group_number: params[:group_number],

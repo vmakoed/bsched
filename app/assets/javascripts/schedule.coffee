@@ -35,8 +35,8 @@ switch_to_desktop_table = ->
 
 setup_resize_actions = ->
   $(window).resize ->
-    apply_sticky_table_headers()
     switch_table_versions_if_needed()
+    apply_sticky_table_headers()
 
 remove_empty_columns_in_html = ->
   remove_empty_columns($('#schedule-table').find('table'), get_number_of_service_headers('html'))

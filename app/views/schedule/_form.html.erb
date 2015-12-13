@@ -1,14 +1,16 @@
 <%= form_tag '/get_group', method: 'get', class: 'form-inline' do %>
-  <div class="input-group">
+  <div class="form-group">
     <%= text_field_tag :group_number,
                        default_group_number,
                        class: 'form-control',
                        placeholder: 'Введите номер группы',
                        autofocus: true %>
   </div>
-  <%= select_tag(:subgroup_number,
+  <div class="form-group">
+    <%= select_tag(:subgroup_number,
                  options_for_select([['Подгруппа 1', 1], ['Подгруппа 2', 2]], default_subgroup_number),
                  class: 'form-control dropdown-toggle') %>
+  </div>
   <%= submit_tag 'Показать расписание', class: 'btn btn-primary' %>
 <% end %>
 
