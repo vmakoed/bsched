@@ -18,11 +18,10 @@
                 data-toggle="button" id="filters-button" title="Настройки">
           <span class="glyphicon glyphicon-cog"></span>
         </button>
-        <button type="button" class="btn btn-link navbar-btn navbar-button" title="Скачать PDF">
-          <%= link_to (url_for(format: :pdf)), target: '_blank' do %>
-            <span class="glyphicon glyphicon-download"></span>
-          <% end  %>
-        </button>
+        <%= link_to (url_for(format: :pdf)), class: 'btn btn-link navbar-btn navbar-button',
+                    style: 'line-height: 30px;', title: 'Скачать PDF', target: '_blank' do %>
+          <span class="glyphicon glyphicon-download"></span>
+        <% end  %>
       </div>
       <div class="navbar-form" id="nav-form">
         <%= render partial: 'form', locals:
