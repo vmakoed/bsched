@@ -109,7 +109,11 @@ show_filters_panel = ->
 
 setup_checkbox_actions = ->
   $('input.all-info-checkbox:checkbox').change ->
-    for info_checkbox in $(this).parents('.panel-body').find('input.info-checkbox:checkbox')
+    for info_checkbox in $(this).parents('.list-group-item').find('input.info-checkbox:checkbox')
+      if this.checked
+        $(info_checkbox).parents('.filter-button').addClass('active')
+      else
+        $(info_checkbox).parents('.filter-button').removeClass('active')
       $(info_checkbox).prop('checked', this.checked)
     reindex_lessons()
 
@@ -118,12 +122,17 @@ setup_checkbox_actions = ->
     reindex_lessons()
 
 handle_all_info_checkbox = (checkbox) ->
-  is_list_checked = is_list_all_checked($(checkbox))
-  $(checkbox).parents('.panel-body').find('input.all-info-checkbox:checkbox').prop('checked', is_list_checked)
+  all_info_checkbox = $(checkbox).parents('.list-group-item').find('input.all-info-checkbox:checkbox')
+  if is_list_all_checked($(checkbox))
+    $(all_info_checkbox).parents('.filter-button').addClass('active')
+    $(checkbox).parents('.list-group-item').find('input.all-info-checkbox:checkbox').prop('checked', true)
+  else
+    $(all_info_checkbox).parents('.filter-button').removeClass('active')
+    $(checkbox).parents('.list-group-item').find('input.all-info-checkbox:checkbox').prop('checked', false)
 
 is_list_all_checked = (checkbox) ->
   is_checked = true
-  for element in $(checkbox).parents('.panel-body').find('input.info-checkbox:checkbox')
+  for element in $(checkbox).parents('.list-group-item').find('input.info-checkbox:checkbox')
     if $(element).prop('checked') == false
       is_checked = false
       break

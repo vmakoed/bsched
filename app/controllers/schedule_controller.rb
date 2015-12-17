@@ -19,8 +19,7 @@ class ScheduleController < ApplicationController
   end
 
   def show
-    schedule_parser_service = ScheduleParserService.new(params, form_url(params[:group_number]))
-    @schedule_info = schedule_parser_service.schedule_info
+    @schedule_info = ScheduleParserService.new(params, form_url(params[:group_number])).schedule_info
     @current_info = get_current_info
     respond_to do |format|
       format.html
