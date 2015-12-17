@@ -20,6 +20,11 @@
   .btn {
     text-align: left;
 
+    label {
+      white-space: normal;
+      margin-right: 10px;
+    }
+
     span {
       padding-right: 10px;
       visibility: hidden;
