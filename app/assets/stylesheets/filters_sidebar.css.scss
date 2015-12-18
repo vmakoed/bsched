@@ -19,11 +19,7 @@
 
   .btn {
     text-align: left;
-
-    label {
-      white-space: normal;
-      margin-right: 10px;
-    }
+    overflow: hidden;
 
     span {
       padding-right: 10px;
@@ -42,4 +38,20 @@
 
 #filters-sidebar .list-group-item {
   border: none;
+}
+
+@media screen and (max-width: 992px) {
+  label {
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 993px) {
+  label {
+    font-size: 0.8vw;
+  }
+
+  span {
+    font-size: 0.8vw;
+  }
 }
