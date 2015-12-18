@@ -3,41 +3,53 @@
     <li class="list-group-item">
       <div class="btn-group-vertical" data-toggle="buttons" style="width: 100%;">
         <div class="btn btn-block btn-default filter-button active">
-          <span class="glyphicon glyphicon-ok"></span>
-          <label>
-            <input type="checkbox" class="all-info-checkbox" checked><b>Все занятия</b>
-          </label>
+          <div class="filter-button-wrapper">
+            <span class="glyphicon glyphicon-ok"></span>
+            <label>
+              <input type="checkbox" class="all-info-checkbox" checked><b>Все занятия</b>
+            </label>
+          </div>
         </div>
         <div class="btn btn-block btn-default filter-button active">
-          <span class="glyphicon glyphicon-ok"></span>
-          <label>
-            <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="lecture" checked>Лекции
-          </label>
+          <div class="filter-button-wrapper">
+            <span class="glyphicon glyphicon-ok"></span>
+            <label>
+              <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="lecture" checked>Лекции
+            </label>
+          </div>
         </div>
         <div class="btn btn-block btn-default filter-button active">
-          <span class="glyphicon glyphicon-ok"></span>
-          <label>
-            <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="seminar" checked>Практические
-          </label>
+          <div class="filter-button-wrapper">
+            <span class="glyphicon glyphicon-ok"></span>
+            <label>
+              <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="seminar" checked>Практические
+            </label>
+          </div>
         </div>
         <div class="btn btn-block btn-default filter-button active">
-          <span class="glyphicon glyphicon-ok"></span>
-          <label>
-            <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="lab" checked>Лабораторные
-          </label>
+          <div class="filter-button-wrapper">
+            <span class="glyphicon glyphicon-ok"></span>
+            <label>
+              <input type="checkbox" class="info-checkbox lesson-type-checkbox" value="lab" checked>Лабораторные
+            </label>
+          </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
       <div class="btn-group-vertical" data-toggle="buttons" style="width: 100%;">
         <div class="btn btn-block btn-default filter-button active">
-          <span class="glyphicon glyphicon-ok"></span>
-          <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все предметы</b></label>
+          <div class="filter-button-wrapper">
+            <span class="glyphicon glyphicon-ok"></span>
+            <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все предметы</b></label>
+          </div>
         </div>
         <% subjects.map do |subject| %>
             <div class="btn btn-block btn-default filter-button active">
-              <span class="glyphicon glyphicon-ok"></span>
-              <label><input type="checkbox" class="info-checkbox" value="<%= subject %>" checked><%= subject %></label>
+              <div class="filter-button-wrapper">
+                <span class="glyphicon glyphicon-ok"></span>
+                <label><input type="checkbox" class="info-checkbox" value="<%= subject %>" checked><%= subject %></label>
+              </div>
             </div>
         <% end %>
       </div>
@@ -45,15 +57,19 @@
     <li class="list-group-item">
       <div class="btn-group-vertical" data-toggle="buttons" style="width: 100%;">
         <div class="btn btn-block btn-default filter-button active">
-          <span class="glyphicon glyphicon-ok"></span>
-          <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все преподаватели</b></label>
+          <div class="filter-button-wrapper">
+            <span class="glyphicon glyphicon-ok"></span>
+            <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все преподаватели</b></label>
+          </div>
         </div>
         <% employees.map do |employee| %>
             <div class="btn btn-block btn-default filter-button active">
-              <span class="glyphicon glyphicon-ok"></span>
-              <label>
-                <input type="checkbox" class="info-checkbox" value="<%= employee %>" checked><%= employee %>
-              </label>
+              <div class="filter-button-wrapper">
+                <span class="glyphicon glyphicon-ok"></span>
+                <label>
+                  <input type="checkbox" class="info-checkbox" value="<%= employee %>" checked><%= employee %>
+                </label>
+              </div>
             </div>
         <% end %>
       </div>
@@ -61,16 +77,20 @@
     <li class="list-group-item">
       <div class="btn-group-vertical" data-toggle="buttons" style="width: 100%;">
         <div class="btn btn-block btn-default filter-button active">
-          <span class="glyphicon glyphicon-ok"></span>
-          <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все аудитории</b></label>
+          <div class="filter-button-wrapper">
+            <span class="glyphicon glyphicon-ok"></span>
+            <label><input type="checkbox" class="all-info-checkbox" checked ><b>Все аудитории</b></label>
+          </div>
         </div>
         <% auditories.map do |auditory| %>
             <div class="btn btn-block btn-default filter-button active">
-              <span class="glyphicon glyphicon-ok"></span>
-              <label>
-                <input type="checkbox" class="info-checkbox" value="<%= auditory %>" checked>
-                <%= auditory %>
-              </label>
+              <div class="filter-button-wrapper">
+                <span class="glyphicon glyphicon-ok"></span>
+                <label>
+                  <input type="checkbox" class="info-checkbox" value="<%= auditory %>" checked>
+                  <%= auditory %>
+                </label>
+              </div>
             </div>
         <% end %>
       </div>

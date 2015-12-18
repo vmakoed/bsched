@@ -17,9 +17,11 @@
     background-color: #f5f5f5;
   }
 
-  .btn {
+  .filter-button {
     text-align: left;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 
     span {
       padding-right: 10px;
@@ -53,5 +55,9 @@
 
   span {
     font-size: 0.8vw;
+  }
+
+  .filter-button {
+    height: 2.7vw;
   }
 }
