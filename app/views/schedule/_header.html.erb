@@ -14,6 +14,25 @@
     </div>
     <div class="collapse navbar-collapse" id="nav-elements">
       <div class="navbar-right" id="nav-buttons">
+        <button type="button" class="btn btn-link navbar-btn navbar-button"
+                data-toggle="popover" data-trigger="focus" data-placement="bottom" id="info-button" title="Помощь"
+                data-content='
+                <div>
+                  <span class="glyphicon glyphicon-th-large" id="lecture-hint"></span>
+                  <label>Лекции</label>
+                </div>
+                <div>
+                  <span class="glyphicon glyphicon-th-large" id="seminar-hint"></span>
+                  <label>Практические</label>
+                </div>
+                 <div>
+                  <span class="glyphicon glyphicon-th-large" id="lab-hint"></span>
+                  <label>Лабораторные</label>
+                </div>
+                '
+        >
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </button>
         <button type="button" class="btn btn-default navbar-btn navbar-button navbar-button-active"
                 data-toggle="button" id="filters-button" title="Настройки">
           <span class="glyphicon glyphicon-cog"></span>

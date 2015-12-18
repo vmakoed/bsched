@@ -8,12 +8,16 @@ $ ->
   setup_filters_button()
   setup_resize_actions()
   setup_checkbox_actions()
+  setup_popover()
   hide_filters_if_sm()
   show_filters_if_larger_than_sm()
   create_and_hide_mobile_table()
   switch_table_versions_if_needed()
   apply_sticky_table_headers()
   scroll_to_current_week()
+
+setup_popover = ->
+  $('[data-toggle="popover"]').popover({html: true})
 
 create_and_hide_mobile_table = ->
   $('#schedule-table').find('table').stacktable()
