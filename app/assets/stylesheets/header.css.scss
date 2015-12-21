@@ -43,3 +43,22 @@ nav {
     color: #dc4a3d;
   }
 }
+
+.form-inline {
+  width: auto;
+  display: inline-block;
+}
+
+@media screen and (max-width: 992px) {
+  .form-inline {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .form-group, #submit-group-button {
+    width: 100%;
+    margin-right: 0;
+  }
+}
