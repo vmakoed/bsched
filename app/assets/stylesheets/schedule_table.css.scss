@@ -10,6 +10,7 @@
 #schedule-table, #schedule-table-pdf {
   .table th, .table td {
     border: none !important;
+    white-space: normal;
   }
 
   .weekday-td {
@@ -69,7 +70,7 @@
 
   .lesson-td {
     width: 1000px;
-    padding: 2px !important;
+    padding: 1px !important;
   }
 
   .lesson-time {
@@ -115,7 +116,7 @@
     }
 
     .lesson-time {
-      font-size: 16px;
+      font-size: 14px;
       line-height: 125%;
       font-weight: bold;
     }

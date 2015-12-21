@@ -3,8 +3,12 @@
     <span class="<%= "#{badge_current lesson['lessonType']}" %>">Сейчас</span>
   <% end %>
   <div class="lesson-wrapper">
-    <div class="subject"><%= lesson['subject'] %></div>
-    <div class="employee"><%= lesson['employee'] %></div>
-    <div class="auditory"><%= lesson['auditory'] %></div>
+    <div class="primary-info">
+      <div class="subject"><%= lesson['subject'] %></div>
+      <div class="employee"><%= lesson['employee'] %></div>
+    </div>
+    <div class="secondary-info">
+      <div class="auditory"><%= lesson['auditory'] %></div>
+    </div>
   </div>
 </div>

@@ -10,7 +10,6 @@
 
   .lesson-wrapper {
     position: absolute;
-    padding: 2px;
     width: 100%;
     top: 50%;
     left: 50%;
@@ -86,15 +85,15 @@
 
   .small-only {
     .lesson-container {
-      height: 72px;
+      height: 64px;
     }
 
     .badge-current {
-      font-size: 14px !important;
+      display: none;
     }
 
     .subject {
-      font-size: 16px;
+      font-size: 20px;
     }
 
     .employee, .auditory {
@@ -110,5 +109,26 @@
 
   .employee, .auditory {
     font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .lesson-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .primary-info {
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .secondary-info {
+      margin-left: auto;
+      text-align: right;
+    }
   }
 }
