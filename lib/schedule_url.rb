@@ -4,11 +4,11 @@ module ScheduleURL
   require 'nokogiri'
 
   def form_url(group_number)
-    "http://www.bsuir.by/schedule/rest/schedule/#{get_group_id_by_number(group_number)}"
+    "https://www.bsuir.by/schedule/rest/schedule/#{get_group_id_by_number(group_number)}"
   end
 
   def get_group_id_by_number(group_number)
-    groups_hash = parse_groups_xml(Nokogiri::XML(open('http://www.bsuir.by/schedule/rest/studentGroup')))
+    groups_hash = parse_groups_xml(Nokogiri::XML(open('https://www.bsuir.by/schedule/rest/studentGroup')))
     find_group_id(groups_hash, group_number)
   end
 
