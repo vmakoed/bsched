@@ -1,6 +1,6 @@
 = Update
 
-The project is no longer maintained has been taken down from bsched.herokuapp.com.
+The project is no longer maintained and has been taken down from bsched.herokuapp.com.
 
 = BSUIR Schedule Complete
 
