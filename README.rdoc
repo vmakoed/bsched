@@ -1,3 +1,7 @@
+= Update
+
+The project is no longer maintained has been taken down from bsched.herokuapp.com.
+
 = BSUIR Schedule Complete
 
 The most relevant deployed version: http://bsched.herokuapp.com
